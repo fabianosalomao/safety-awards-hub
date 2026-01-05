@@ -1,4 +1,5 @@
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import Header from '@/components/Header';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Manifesto from '@/components/sections/Manifesto';
@@ -16,6 +17,7 @@ const Index = () => {
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-background">
+        <Header />
         <main>
           <Hero />
           <About />
