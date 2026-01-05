@@ -17,9 +17,9 @@ const Dates = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Datas', 'Fechas')}{' '}
-            <span className="text-gradient-gold">{t('Importantes', 'Importantes')}</span>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            {t('Data', 'Fecha')}{' '}
+            <span className="text-gradient-gold">{t('Importante', 'Importante')}</span>
           </h2>
           <div className="section-divider mt-6" />
         </motion.div>
