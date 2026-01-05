@@ -3,6 +3,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import logoDark from '@/assets/logo-dark-bg.png';
+import thomasEdison from '@/assets/thomas-edison.jpg';
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -13,7 +14,16 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-pattern">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Parallax Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        style={{ backgroundImage: `url(${thomasEdison})` }}
+      />
+      
+      {/* Dark Overlay for readability */}
+      <div className="absolute inset-0 bg-black/70" />
+      
       {/* Ambient glow effect */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] opacity-60" />
@@ -89,6 +99,19 @@ const Hero = () => {
             </a>
           </Button>
         </motion.div>
+
+        {/* Photo credit */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="text-xs text-muted-foreground/70 mt-8 italic"
+        >
+          {t(
+            '*(foto) Thomas Edison - Inspirados por Edison, reconhecemos hoje os inovadores da segurança.',
+            '*(foto) Thomas Edison - Inspirados por Edison, reconocemos hoy a los innovadores de la seguridad.'
+          )}
+        </motion.p>
 
         <motion.button
           initial={{ opacity: 0 }}
