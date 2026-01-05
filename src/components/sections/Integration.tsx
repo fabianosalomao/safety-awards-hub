@@ -25,8 +25,8 @@ const Integration = () => {
           <div className="section-divider mt-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">
             {t(
-              'Ajude a espalhar a palavra sobre o Safety Innovation Awards.',
-              'Ayude a difundir la palabra sobre el Safety Innovation Awards.'
+              'Ajude a espalhar sobre o Safety Innovation Awards.',
+              'Ayude a difundir sobre el Safety Innovation Awards.'
             )}
           </p>
         </motion.div>
