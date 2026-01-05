@@ -5,6 +5,7 @@ import About from '@/components/sections/About';
 import Manifesto from '@/components/sections/Manifesto';
 import Eligibility from '@/components/sections/Eligibility';
 import Prerequisites from '@/components/sections/Prerequisites';
+import EvaluationCriteria from '@/components/sections/EvaluationCriteria';
 import Process from '@/components/sections/Process';
 import Committee from '@/components/sections/Committee';
 import Awards from '@/components/sections/Awards';
@@ -24,6 +25,7 @@ const Index = () => {
           <Manifesto />
           <Eligibility />
           <Prerequisites />
+          <EvaluationCriteria />
           <Process />
           <Committee />
           <Awards />

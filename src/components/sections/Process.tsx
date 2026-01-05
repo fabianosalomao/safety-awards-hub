@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Send, Search, Users, Presentation } from 'lucide-react';
+import { Megaphone, Calendar, Clock, Users, Trophy } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Process = () => {
@@ -8,41 +8,50 @@ const Process = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const steps = [
+  const timeline = [
     {
-      icon: Send,
-      step: '01',
-      title: t('Submissão', 'Envío'),
+      icon: Megaphone,
+      date: '28/11/2025',
+      title: t('Pré-lançamento', 'Pre-lanzamiento'),
       description: t(
-        'Preencha o formulário com os detalhes do seu projeto até o prazo final.',
-        'Complete el formulario con los detalles de su proyecto hasta el plazo final.'
+        'Engajamento inicial e divulgação do prêmio.',
+        'Compromiso inicial y divulgación del premio.'
       ),
     },
     {
-      icon: Search,
-      step: '02',
-      title: t('Triagem Inicial', 'Evaluación Inicial'),
+      icon: Calendar,
+      date: '12/01/2026',
+      title: t('Abertura Oficial', 'Apertura Oficial'),
       description: t(
-        'Nossa equipe verifica se o projeto atende aos pré-requisitos estabelecidos.',
-        'Nuestro equipo verifica si el proyecto cumple con los prerrequisitos establecidos.'
+        'Início das inscrições e submissão de projetos.',
+        'Inicio de las inscripciones y envío de proyectos.'
+      ),
+    },
+    {
+      icon: Clock,
+      date: '13/03/2026',
+      title: t('Encerramento', 'Cierre'),
+      description: t(
+        'Prazo final para submissão de projetos.',
+        'Plazo final para envío de proyectos.'
       ),
     },
     {
       icon: Users,
-      step: '03',
+      date: '16-27/03/2026',
       title: t('Avaliação do Comitê', 'Evaluación del Comité'),
       description: t(
-        'Especialistas avaliam os projetos qualificados com base em critérios técnicos.',
-        'Especialistas evalúan los proyectos calificados con base en criterios técnicos.'
+        'Análise criteriosa por especialistas.',
+        'Análisis criterioso por especialistas.'
       ),
     },
     {
-      icon: Presentation,
-      step: '04',
-      title: t('Apresentação ao Vivo', 'Presentación en Vivo'),
+      icon: Trophy,
+      date: t('Abril/2026', 'Abril/2026'),
+      title: t('Safety Summit', 'Safety Summit'),
       description: t(
-        'Os 3 finalistas apresentam seus projetos durante o Safety Summit.',
-        'Los 3 finalistas presentan sus proyectos durante el Safety Summit.'
+        'Premiação dos finalistas durante o evento.',
+        'Premiación de los finalistas durante el evento.'
       ),
     },
   ];
@@ -57,42 +66,49 @@ const Process = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Processo de', 'Proceso de')}{' '}
-            <span className="text-gradient-gold">{t('seleção', 'selección')}</span>
+            {t('Cronograma do', 'Cronograma del')}{' '}
+            <span className="text-gradient-gold">{t('Prêmio', 'Premio')}</span>
           </h2>
           <div className="section-divider mt-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">
             {t(
-              'Um processo transparente e criterioso para identificar os melhores projetos.',
-              'Un proceso transparente y criterioso para identificar los mejores proyectos.'
+              'Acompanhe as etapas do processo de submissão e avaliação.',
+              'Siga las etapas del proceso de envío y evaluación.'
             )}
           </p>
         </motion.div>
 
-        <div className="relative">
-          {/* Connection line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent/30 to-transparent -translate-y-1/2" />
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical line */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-primary/20 -translate-x-1/2" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
+          <div className="space-y-8 md:space-y-12">
+            {timeline.map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
-                className="relative"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                className={`relative flex items-start gap-6 md:gap-0 ${
+                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                }`}
               >
-                <div className="card-elevated p-6 text-center relative z-10 h-full">
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-sm font-bold">
-                    {step.step}
+                {/* Timeline node */}
+                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-card border-2 border-accent flex items-center justify-center z-10">
+                  <item.icon className="w-4 h-4 text-accent" />
+                </div>
+
+                {/* Content card */}
+                <div className={`ml-14 md:ml-0 md:w-[calc(50%-2rem)] ${
+                  index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8'
+                }`}>
+                  <div className="card-elevated p-5 hover-lift">
+                    <span className="inline-block px-3 py-1 text-xs font-bold rounded-full bg-accent/20 text-accent mb-3">
+                      {item.date}
+                    </span>
+                    <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
                   </div>
-                  <div className="w-16 h-16 mx-auto mt-4 mb-5 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <step.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-bold mb-3">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
                 </div>
               </motion.div>
             ))}
