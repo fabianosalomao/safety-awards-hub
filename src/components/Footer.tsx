@@ -20,8 +20,8 @@ const Footer = () => {
             />
             <p className="text-sm text-muted-foreground">
               {t(
-                'Uma iniciativa integrada ao Safety Summit',
-                'Una iniciativa integrada al Safety Summit'
+                'Uma iniciativa integrada ao MSA Safety Summit 2026',
+                'Una iniciativa integrada al MSA Safety Summit 2026'
               )}
             </p>
           </div>

@@ -48,7 +48,7 @@ const Awards = () => {
                     {t('3 Finalistas', '3 Finalistas')}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    {t('Apresentação no Safety Summit', 'Presentación en Safety Summit')}
+                    {t('Apresentação no MSA Safety Summit 2026', 'Presentación en MSA Safety Summit 2026')}
                   </p>
                 </div>
               </div>

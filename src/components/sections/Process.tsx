@@ -48,7 +48,7 @@ const Process = () => {
     {
       icon: Trophy,
       date: t('Abril/2026', 'Abril/2026'),
-      title: t('Safety Summit', 'Safety Summit'),
+      title: t('MSA Safety Summit 2026', 'MSA Safety Summit 2026'),
       description: t(
         'Premiação dos finalistas durante o evento.',
         'Premiación de los finalistas durante el evento.'

@@ -28,7 +28,7 @@ const About = () => {
     },
     {
       icon: Users,
-      title: t('Integrado ao Safety Summit', 'Integrado al Safety Summit'),
+      title: t('Integrado ao MSA Safety Summit 2026', 'Integrado al MSA Safety Summit 2026'),
       description: t(
         'Os finalistas apresentam seus projetos ao vivo durante o maior evento de segurança da região.',
         'Los finalistas presentan sus proyectos en vivo durante el mayor evento de seguridad de la región.'
