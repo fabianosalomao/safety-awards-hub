@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion';
-import { Linkedin, Mail, Globe } from 'lucide-react';
+import { Linkedin, Mail, Globe, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Link } from 'react-router-dom';
 import logoDark from '@/assets/logo-dark-bg.png';
 
 const Footer = () => {
   const { language, setLanguage, t } = useLanguage();
 
   return (
-    <footer className="border-t border-border bg-surface-overlay py-12">
+    <footer id="contact" className="border-t border-border bg-surface-overlay py-12">
       <div className="section-container">
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Logo and tagline */}
@@ -76,11 +77,18 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center">
+        <div className="border-t border-border mt-8 pt-8 flex items-center justify-center gap-4">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Safety Innovation Awards.{' '}
             {t('Todos os direitos reservados.', 'Todos los derechos reservados.')}
           </p>
+          <Link 
+            to="/admin/login" 
+            className="text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            title={t('Área Restrita', 'Área Restringida')}
+          >
+            <Lock className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </footer>

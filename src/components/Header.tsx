@@ -12,11 +12,13 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { id: 'about', labelPT: 'Sobre', labelES: 'Sobre' },
+    { id: 'hero', labelPT: 'Início', labelES: 'Inicio' },
+    { id: 'about', labelPT: 'O Prêmio', labelES: 'El Premio' },
     { id: 'eligibility', labelPT: 'Participar', labelES: 'Participar' },
-    { id: 'process', labelPT: 'Processo', labelES: 'Proceso' },
+    { id: 'criteria', labelPT: 'Critérios', labelES: 'Criterios' },
+    { id: 'committee', labelPT: 'Comitê', labelES: 'Comité' },
     { id: 'awards', labelPT: 'Premiação', labelES: 'Premiación' },
-    { id: 'dates', labelPT: 'Datas', labelES: 'Fechas' },
+    { id: 'contact', labelPT: 'Contato', labelES: 'Contacto' },
   ];
 
   useEffect(() => {
