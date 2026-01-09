@@ -83,20 +83,26 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
     const uploadedUrls: string[] = [];
     
     for (const file of files) {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-      const filePath = `submissions/${fileName}`;
+      // Use secure Edge Function for file uploads with server-side validation
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('fileCount', String(files.length));
 
-      const { error } = await supabase.storage
-        .from('submissions-files')
-        .upload(filePath, file);
+      const response = await supabase.functions.invoke('upload-submission-file', {
+        body: formData,
+      });
 
-      if (error) {
-        console.error('Upload error:', error);
+      if (response.error) {
+        console.error('Upload error:', response.error);
         throw new Error(t('Erro ao enviar arquivo', 'Error al subir archivo'));
       }
 
-      uploadedUrls.push(filePath);
+      if (!response.data?.success) {
+        const errorMessage = response.data?.error || t('Erro ao enviar arquivo', 'Error al subir archivo');
+        throw new Error(errorMessage);
+      }
+
+      uploadedUrls.push(response.data.filePath);
     }
 
     return uploadedUrls;
