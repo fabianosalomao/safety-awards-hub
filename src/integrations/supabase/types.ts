@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      submission_rate_limits: {
+        Row: {
+          ip_hash: string
+          submission_count: number | null
+          window_start: string | null
+        }
+        Insert: {
+          ip_hash: string
+          submission_count?: number | null
+          window_start?: string | null
+        }
+        Update: {
+          ip_hash?: string
+          submission_count?: number | null
+          window_start?: string | null
+        }
+        Relationships: []
+      }
       submissions: {
         Row: {
           company: string
@@ -97,6 +115,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_submission_rate_limit: {
+        Args: { client_ip_hash: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
