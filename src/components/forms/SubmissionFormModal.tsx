@@ -118,23 +118,31 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
         fileUrls = await uploadFiles();
       }
 
-      const { error } = await supabase.from('submissions').insert({
-        name: data.name,
-        job_title: data.job_title,
-        company: data.company,
-        email: data.email,
-        phone: data.phone || null,
-        project_title: data.project_title,
-        current_scenario: data.current_scenario,
-        solution_applied: data.solution_applied,
-        results_obtained: data.results_obtained,
-        main_learning: data.main_learning,
-        what_would_change: data.what_would_change || null,
-        file_urls: fileUrls,
+      // Use secure Edge Function for submission creation with server-side validation and rate limiting
+      const response = await supabase.functions.invoke('create-submission', {
+        body: {
+          name: data.name,
+          job_title: data.job_title,
+          company: data.company,
+          email: data.email,
+          phone: data.phone || null,
+          project_title: data.project_title,
+          current_scenario: data.current_scenario,
+          solution_applied: data.solution_applied,
+          results_obtained: data.results_obtained,
+          main_learning: data.main_learning,
+          what_would_change: data.what_would_change || null,
+          file_urls: fileUrls,
+        },
       });
 
-      if (error) {
-        throw error;
+      if (response.error) {
+        throw new Error(response.error.message || t('Erro ao enviar', 'Error al enviar'));
+      }
+
+      if (!response.data?.success) {
+        const errorMessage = response.data?.error || t('Erro ao enviar', 'Error al enviar');
+        throw new Error(errorMessage);
       }
 
       setIsSuccess(true);
@@ -142,12 +150,20 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
       setFiles([]);
     } catch (error) {
       console.error('Submission error:', error);
+      
+      const errorMessage = error instanceof Error ? error.message : '';
+      const isRateLimit = errorMessage.toLowerCase().includes('rate limit');
+      
       toast({
-        title: t('Erro ao enviar', 'Error al enviar'),
-        description: t(
-          'Ocorreu um erro ao enviar sua submissão. Tente novamente.',
-          'Ocurrió un error al enviar su proyecto. Intente nuevamente.'
-        ),
+        title: isRateLimit 
+          ? t('Limite de envios excedido', 'Límite de envíos excedido')
+          : t('Erro ao enviar', 'Error al enviar'),
+        description: isRateLimit
+          ? t('Máximo de 5 submissões por hora. Tente novamente mais tarde.', 'Máximo de 5 envíos por hora. Intente nuevamente más tarde.')
+          : t(
+              'Ocorreu um erro ao enviar sua submissão. Tente novamente.',
+              'Ocurrió un error al enviar su proyecto. Intente nuevamente.'
+            ),
         variant: 'destructive',
       });
     } finally {
