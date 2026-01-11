@@ -78,6 +78,33 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [serverVerified, setServerVerified] = useState(false);
+
+  // Server-side admin verification on mount for defense-in-depth
+  useEffect(() => {
+    const verifyAdminServerSide = async () => {
+      if (!user) {
+        setServerVerified(false);
+        return;
+      }
+      
+      const { data, error } = await supabase.rpc('is_admin_or_reviewer', {
+        _user_id: user.id
+      });
+      
+      if (error || data !== true) {
+        setServerVerified(false);
+        navigate('/admin/login');
+        return;
+      }
+      
+      setServerVerified(true);
+    };
+    
+    if (!loading && user) {
+      verifyAdminServerSide();
+    }
+  }, [user, loading, navigate]);
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -86,10 +113,10 @@ const AdminDashboard = () => {
   }, [user, loading, isAdmin, navigate]);
 
   useEffect(() => {
-    if (user && isAdmin) {
+    if (user && isAdmin && serverVerified) {
       fetchSubmissions();
     }
-  }, [user, isAdmin]);
+  }, [user, isAdmin, serverVerified]);
 
   useEffect(() => {
     const filtered = submissions.filter(sub =>
@@ -171,7 +198,7 @@ const AdminDashboard = () => {
     navigate('/admin/login');
   };
 
-  if (loading || !user || !isAdmin) {
+  if (loading || !user || !isAdmin || !serverVerified) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
