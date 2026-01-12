@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Linkedin, QrCode, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-
+import qrCodeImage from '@/assets/qrcode.png';
 const Integration = () => {
   const { t } = useLanguage();
   const ref = useRef(null);
@@ -56,7 +56,7 @@ const Integration = () => {
               asChild
             >
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/msa-the-safety-company/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
@@ -85,8 +85,8 @@ const Integration = () => {
                 'Use en materiales impresos y presentaciones.'
               )}
             </p>
-            <div className="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center">
-              <QrCode className="w-24 h-24 text-background" />
+            <div className="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center p-2">
+              <img src={qrCodeImage} alt="QR Code Safety Innovation Awards" className="w-full h-full object-contain" />
             </div>
           </motion.div>
         </div>

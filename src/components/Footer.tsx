@@ -31,7 +31,7 @@ const Footer = () => {
           <div className="text-center">
             <div className="flex items-center justify-center gap-4 mb-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/msa-the-safety-company/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-colors"
