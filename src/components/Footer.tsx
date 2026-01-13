@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 import logoDark from '@/assets/logo-dark-bg.png';
+import logo4x4 from '@/assets/4x4-propaganda.png';
 
 const Footer = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -17,7 +18,7 @@ const Footer = () => {
             <img
               src={logoDark}
               alt="Safety Innovation Awards"
-              className="h-10 mb-4 mx-auto md:mx-0"
+              className="h-10 w-auto object-contain mb-4 mx-auto md:mx-0"
             />
             <p className="text-sm text-muted-foreground">
               {t(
@@ -77,18 +78,36 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 flex items-center justify-center gap-4">
+        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Safety Innovation Awards.{' '}
             {t('Todos os direitos reservados.', 'Todos los derechos reservados.')}
           </p>
-          <Link 
-            to="/admin/login" 
-            className="text-muted-foreground/50 hover:text-muted-foreground transition-colors"
-            title={t('Área Restrita', 'Área Restringida')}
-          >
-            <Lock className="w-4 h-4" />
-          </Link>
+          
+          {/* Crédito da Agência */}
+          <div className="flex items-center gap-4">
+            <a
+              href="https://www.4x4propaganda.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <img
+                src={logo4x4}
+                alt="4x4 Propaganda"
+                className="h-5 w-auto object-contain"
+              />
+              <span className="text-[10px] text-muted-foreground">Tecnologia</span>
+            </a>
+            
+            <Link 
+              to="/admin/login" 
+              className="text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+              title={t('Área Restrita', 'Área Restringida')}
+            >
+              <Lock className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

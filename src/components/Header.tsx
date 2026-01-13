@@ -66,7 +66,7 @@ const Header = () => {
             <img
               src={logoDark}
               alt="Safety Innovation Awards"
-              className="h-8 md:h-10 w-auto"
+              className="h-8 md:h-10 w-auto object-contain"
             />
           </button>
 

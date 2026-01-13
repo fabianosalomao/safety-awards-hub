@@ -11,7 +11,7 @@ const Prerequisites = () => {
   const requirements = [
     {
       icon: FileText,
-      title: t('Cenário Atual', 'Escenario Actual'),
+      title: t('Cenário Passado', 'Escenario Pasado'),
       description: t(
         'Descreva o contexto e os desafios de segurança que motivaram o projeto.',
         'Describa el contexto y los desafíos de seguridad que motivaron el proyecto.'
