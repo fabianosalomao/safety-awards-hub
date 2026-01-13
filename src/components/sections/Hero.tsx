@@ -40,7 +40,7 @@ const Hero = () => {
           <img
             src={logoDark}
             alt="Safety Innovation Awards"
-            className="h-20 md:h-28 lg:h-32 mx-auto"
+            className="h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto"
           />
         </motion.div>
 
