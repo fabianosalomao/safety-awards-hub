@@ -23,8 +23,8 @@ const Process = () => {
       date: '13/03/2026',
       title: t('Encerramento das Inscrições', 'Cierre de las Inscripciones'),
       description: t(
-        'Encerramento das Inscrições.',
-        'Cierre de las Inscripciones.'
+        'Prazo final para submissão de projetos.',
+        'Plazo final para envío de proyectos.'
       ),
     },
     {
