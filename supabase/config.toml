@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.create-submission]
 verify_jwt = false
+
+[functions.detect-country]
+verify_jwt = false
