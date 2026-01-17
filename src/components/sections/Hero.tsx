@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import logoDark from '@/assets/logo-dark-bg.png';
+import logoDark from '@/assets/logo-2026.png';
 import thomasEdison from '@/assets/thomas-edison.jpg';
 
 const Hero = () => {
