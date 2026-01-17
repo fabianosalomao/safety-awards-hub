@@ -419,8 +419,8 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   {t(
-                    `Até ${MAX_FILES} arquivos (PDF, imagens, vídeos). Máximo 20MB cada.`,
-                    `Hasta ${MAX_FILES} archivos (PDF, imágenes, videos). Máximo 20MB cada uno.`
+                    `Até ${MAX_FILES} arquivos (PDF e imagens). Máximo 20MB cada.`,
+                    `Hasta ${MAX_FILES} archivos (PDF e imágenes). Máximo 20MB cada uno.`
                   )}
                 </p>
                 
