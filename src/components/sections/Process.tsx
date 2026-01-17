@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Megaphone, Calendar, Clock, Users, Trophy } from 'lucide-react';
+import { Calendar, Clock, Users, Trophy, Presentation } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Process = () => {
@@ -10,18 +10,9 @@ const Process = () => {
 
   const timeline = [
     {
-      icon: Megaphone,
-      date: '28/11/2025',
-      title: t('Pré-lançamento', 'Pre-lanzamiento'),
-      description: t(
-        'Engajamento inicial e divulgação do prêmio.',
-        'Compromiso inicial y divulgación del premio.'
-      ),
-    },
-    {
       icon: Calendar,
-      date: '12/01/2026',
-      title: t('Abertura Oficial', 'Apertura Oficial'),
+      date: '23/01/2026',
+      title: t('Abertura e Lançamento', 'Apertura y Lanzamiento'),
       description: t(
         'Início das inscrições e submissão de projetos.',
         'Inicio de las inscripciones y envío de proyectos.'
@@ -29,25 +20,34 @@ const Process = () => {
     },
     {
       icon: Clock,
-      date: '13/03/2026',
+      date: '27/03/2026',
       title: t('Encerramento', 'Cierre'),
       description: t(
-        'Prazo final para submissão de projetos.',
-        'Plazo final para envío de proyectos.'
+        'Encerramento das Inscrições.',
+        'Cierre de las Inscripciones.'
       ),
     },
     {
       icon: Users,
-      date: '16-27/03/2026',
-      title: t('Avaliação do Comitê', 'Evaluación del Comité'),
+      date: '28/03-27/03/2026',
+      title: t('1ª fase - Avaliação do Comitê', '1ª fase - Evaluación del Comité'),
       description: t(
-        'Análise criteriosa por especialistas.',
-        'Análisis criterioso por especialistas.'
+        'Análise criteriosa por especialistas do projeto submetido.',
+        'Análisis criterioso por especialistas del proyecto enviado.'
+      ),
+    },
+    {
+      icon: Presentation,
+      date: t('2ª Fase: 28/03 até 24/04', '2ª Fase: 28/03 hasta 24/04'),
+      title: t('Apresentação dos projetos finalistas', 'Presentación de los proyectos finalistas'),
+      description: t(
+        'Apresentação dos projetos para comitê avaliador.',
+        'Presentación de los proyectos para comité evaluador.'
       ),
     },
     {
       icon: Trophy,
-      date: t('Abril/2026', 'Abril/2026'),
+      date: t('Maio/2026', 'Mayo/2026'),
       title: t('MSA Safety Summit 2026', 'MSA Safety Summit 2026'),
       description: t(
         'Premiação dos finalistas durante o evento.',

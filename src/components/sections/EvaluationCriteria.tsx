@@ -111,7 +111,7 @@ const EvaluationCriteria = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-bold">{item.title}</h3>
+                        <h3 className="text-xl md:text-2xl font-bold">{item.title}</h3>
                         <span
                           className="text-sm font-bold px-2 py-0.5 rounded"
                           style={{
@@ -122,7 +122,7 @@ const EvaluationCriteria = () => {
                           {item.weight}%
                         </span>
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <p className="text-base text-muted-foreground leading-relaxed">
                         {item.description}
                       </p>
                       {/* Progress bar */}

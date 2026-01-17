@@ -41,7 +41,7 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="mailto:contato@safetyinnovationawards.com"
+                href="mailto:BRSP.MarketingApprentice3@MSASafety.com"
                 className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-colors"
                 aria-label="Email"
               >
@@ -49,7 +49,7 @@ const Footer = () => {
               </a>
             </div>
             <p className="text-sm text-muted-foreground">
-              contato@safetyinnovationawards.com
+              BRSP.MarketingApprentice3@MSASafety.com
             </p>
           </div>
 

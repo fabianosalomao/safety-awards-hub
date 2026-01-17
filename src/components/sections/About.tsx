@@ -12,7 +12,7 @@ const About = () => {
   const features = [
     {
       icon: Award,
-      title: t('Reconhecimento Real', 'Reconocimiento Real'),
+      title: t('Reconhecimento', 'Reconocimiento'),
       description: t(
         'Premiamos inovações implementadas que demonstraram resultados tangíveis em segurança.',
         'Premiamos innovaciones implementadas que demostraron resultados tangibles en seguridad.'
@@ -22,16 +22,16 @@ const About = () => {
       icon: Globe,
       title: t('Alcance Latino-Americano', 'Alcance Latinoamericano'),
       description: t(
-        'Conectamos profissionais de segurança de toda a América Latina em uma comunidade de excelência.',
-        'Conectamos profesionales de seguridad de toda América Latina en una comunidad de excelencia.'
+        'Conectamos inovações de segurança do trabalho da América Latina em uma comunidade de excelência.',
+        'Conectamos innovaciones de seguridad laboral de América Latina en una comunidad de excelencia.'
       ),
     },
     {
       icon: Users,
       title: t('Integrado ao MSA Safety Summit 2026', 'Integrado al MSA Safety Summit 2026'),
       description: t(
-        'Os finalistas apresentam seus projetos ao vivo durante o maior evento de segurança da região.',
-        'Los finalistas presentan sus proyectos en vivo durante el mayor evento de seguridad de la región.'
+        'Os finalistas serão homenageados durante o maior summit de segurança do trabalho da América Latina.',
+        'Los finalistas serán homenajeados durante el mayor summit de seguridad laboral de América Latina.'
       ),
     },
   ];
@@ -73,7 +73,7 @@ const About = () => {
                 'Más que un premio, es un movimiento para destacar profesionales y empresas que ponen la vida de las personas en primer lugar, usando tecnología e innovación como herramientas de protección.'
               )}
             </p>
-            <p className="text-lg font-medium text-foreground">
+            <p className="text-xl md:text-2xl font-semibold text-foreground">
               {t(
                 'Porque inovações que salvam vidas merecem reconhecimento.',
                 'Porque las innovaciones que salvan vidas merecen reconocimiento.'
