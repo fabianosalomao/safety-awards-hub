@@ -48,13 +48,13 @@ const Awards = () => {
                     {t('3 Finalistas', '3 Finalistas')}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    {t('Apresentação no MSA Safety Summit 2026', 'Presentación en MSA Safety Summit 2026')}
+                    {t('Divulgação no MSA Safety Summit 2026', 'Divulgación en MSA Safety Summit 2026')}
                   </p>
                 </div>
               </div>
               <ul className="space-y-3">
                 {[
-                  t('Apresentação ao vivo para o público', 'Presentación en vivo para el público'),
+                  t('Homenagem ao vivo para o público', 'Homenaje en vivo para el público'),
                   t('Reconhecimento oficial da indústria', 'Reconocimiento oficial de la industria'),
                   t('Networking com líderes de segurança', 'Networking con líderes de seguridad'),
                 ].map((item, i) => (

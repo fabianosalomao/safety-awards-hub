@@ -18,8 +18,8 @@ const Dates = () => {
           className="text-center mb-12"
         >
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Data', 'Fecha')}{' '}
-            <span className="text-gradient-gold">{t('Importante', 'Importante')}</span>
+            {t('Prazo final para', 'Plazo final para')}{' '}
+            <span className="text-gradient-gold">{t('submissão do projeto', 'envío del proyecto')}</span>
           </h2>
           <div className="section-divider mt-6" />
         </motion.div>
@@ -43,7 +43,7 @@ const Dates = () => {
                 <Calendar className="w-10 h-10 text-accent" />
                 <div className="text-left">
                   <p className="text-4xl md:text-5xl font-bold text-gradient-gold">
-                    28 {t('de Fevereiro', 'de Febrero')}
+                    27 {t('de Março', 'de Marzo')}
                   </p>
                   <p className="text-muted-foreground">
                     {t('Último dia para submissão', 'Último día para envío')}
@@ -52,8 +52,8 @@ const Dates = () => {
               </div>
               <p className="text-muted-foreground mt-6">
                 {t(
-                  'Não perca a oportunidade de ter seu projeto reconhecido.',
-                  'No pierda la oportunidad de tener su proyecto reconocido.'
+                  'Não perca a oportunidade de ter seu projeto reconhecido em toda América Latina.',
+                  'No pierda la oportunidad de tener su proyecto reconocido en toda América Latina.'
                 )}
               </p>
             </div>

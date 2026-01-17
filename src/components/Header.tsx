@@ -13,7 +13,7 @@ const Header = () => {
 
   const navLinks = [
     { id: 'hero', labelPT: 'Início', labelES: 'Inicio' },
-    { id: 'about', labelPT: 'O Prêmio', labelES: 'El Premio' },
+    { id: 'about', labelPT: 'Prêmio', labelES: 'Premio' },
     { id: 'eligibility', labelPT: 'Participar', labelES: 'Participar' },
     { id: 'criteria', labelPT: 'Critérios', labelES: 'Criterios' },
     { id: 'committee', labelPT: 'Comitê', labelES: 'Comité' },

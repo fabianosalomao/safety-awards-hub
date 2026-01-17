@@ -21,8 +21,6 @@ const Hero = () => {
         style={{ backgroundImage: `url(${thomasEdison})` }}
       />
       
-      {/* Dark Overlay for readability */}
-      <div className="absolute inset-0 bg-black/70" />
       
       {/* Ambient glow effect */}
       <div className="absolute inset-0 overflow-hidden">

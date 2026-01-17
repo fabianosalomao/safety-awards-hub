@@ -158,10 +158,10 @@ const Committee = () => {
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
               className="card-elevated p-6 text-center"
             >
-              <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-                <feature.icon className="w-6 h-6 text-primary" />
+              <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
+                <feature.icon className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-bold mb-2">{feature.title}</h3>
+              <h3 className="text-lg md:text-xl font-bold mb-2">{feature.title}</h3>
               <p className="text-sm text-muted-foreground">{feature.description}</p>
             </motion.div>
           ))}

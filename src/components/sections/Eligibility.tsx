@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Building2, Users, Cog, Factory } from 'lucide-react';
+import { Building2, Users, Cog } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Eligibility = () => {
@@ -33,14 +33,6 @@ const Eligibility = () => {
         'Especialistas que lideran iniciativas transformadoras en sus organizaciones.'
       ),
     },
-    {
-      icon: Factory,
-      title: t('Indústrias Inovadoras', 'Industrias Innovadoras'),
-      description: t(
-        'Setores que valorizam segurança como diferencial estratégico e competitivo.',
-        'Sectores que valoran la seguridad como diferencial estratégico y competitivo.'
-      ),
-    },
   ];
 
   return (
@@ -65,7 +57,7 @@ const Eligibility = () => {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {profiles.map((profile, index) => (
             <motion.div
               key={index}
