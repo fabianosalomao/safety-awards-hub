@@ -20,8 +20,8 @@ const Process = () => {
     },
     {
       icon: Clock,
-      date: '27/03/2026',
-      title: t('Encerramento', 'Cierre'),
+      date: '13/03/2026',
+      title: t('Encerramento das Inscrições', 'Cierre de las Inscripciones'),
       description: t(
         'Encerramento das Inscrições.',
         'Cierre de las Inscripciones.'
@@ -29,7 +29,7 @@ const Process = () => {
     },
     {
       icon: Users,
-      date: '28/03-27/03/2026',
+      date: '16/03-27/03/2026',
       title: t('1ª fase - Avaliação do Comitê', '1ª fase - Evaluación del Comité'),
       description: t(
         'Análise criteriosa por especialistas do projeto submetido.',
