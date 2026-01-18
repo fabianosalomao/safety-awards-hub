@@ -14,10 +14,10 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-[100svh] md:min-h-screen flex items-center justify-center overflow-hidden">
       {/* Parallax Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        className="absolute inset-0 bg-cover bg-center bg-fixed max-md:bg-scroll max-md:bg-top"
         style={{ backgroundImage: `url(${thomasEdison})` }}
       />
       
@@ -28,7 +28,7 @@ const Hero = () => {
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] opacity-40" />
       </div>
 
-      <div className="section-container relative z-10 text-center py-20">
+      <div className="section-container relative z-10 text-center py-24 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
           onClick={scrollToSection}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors"
           aria-label="Scroll to content"
         >
           <ChevronDown className="w-8 h-8 animate-bounce" />
