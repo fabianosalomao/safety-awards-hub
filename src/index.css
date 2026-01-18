@@ -190,3 +190,17 @@
     box-shadow: var(--shadow-elevated);
   }
 }
+
+/* Mobile Hero Fixes */
+@media (max-width: 480px) {
+  #hero {
+    min-height: auto;
+    min-height: 100svh;
+    min-height: -webkit-fill-available;
+  }
+  
+  #hero > div:first-child {
+    background-size: cover;
+    background-position: top center;
+  }
+}
