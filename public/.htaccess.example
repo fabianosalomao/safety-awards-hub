@@ -1,0 +1,73 @@
+# ============================================
+# Recomendações para hospedagem Locaweb
+# ============================================
+# 
+# INSTRUÇÕES:
+# 1. Renomeie este arquivo para .htaccess
+# 2. Faça upload para a raiz do seu domínio no servidor Locaweb
+# 3. Teste se o site continua funcionando após a alteração
+#
+# NOTA: Este arquivo NÃO é aplicado automaticamente.
+# Você precisa configurá-lo manualmente no seu servidor.
+# ============================================
+
+# MIME types corretos para JavaScript e CSS
+AddType application/javascript .js .mjs
+AddType text/css .css
+AddType application/json .json
+
+# ============================================
+# Cache Headers
+# ============================================
+<IfModule mod_headers.c>
+  # Sem cache para HTML (sempre buscar versão nova)
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+  
+  # Cache longo para assets com hash (1 ano)
+  # Arquivos como main.abc123.js, style.xyz789.css
+  <FilesMatch "\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|ico|webp|avif)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# ============================================
+# Compressão GZIP
+# ============================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ============================================
+# SPA Fallback (para React Router)
+# ============================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Se o arquivo ou diretório não existir, redirecionar para index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ============================================
+# Segurança básica
+# ============================================
+<IfModule mod_headers.c>
+  # Prevenir clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+  
+  # Prevenir MIME type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+  
+  # XSS Protection
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
