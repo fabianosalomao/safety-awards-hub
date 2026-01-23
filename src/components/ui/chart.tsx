@@ -58,6 +58,20 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = "Chart";
 
+/**
+ * ChartStyle - Injects CSS custom properties for chart theming
+ * 
+ * SECURITY WARNING: This component uses dangerouslySetInnerHTML to inject CSS.
+ * Current usage is SAFE because:
+ * - THEMES is a static constant, not user input
+ * - Chart config uses predefined color values only
+ * - No user-supplied data flows into the HTML string
+ * 
+ * If this component is modified to accept user-controlled data:
+ * 1. VALIDATE all color values against a strict pattern (e.g., HSL format)
+ * 2. SANITIZE any dynamic keys to prevent CSS injection
+ * 3. Consider using React style props instead of dangerouslySetInnerHTML
+ */
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(([_, config]) => config.theme || config.color);
 
