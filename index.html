@@ -56,29 +56,119 @@
       }
       .error-message {
         display: none;
-        max-width: 500px;
-        padding: 24px;
+      }
+      
+      /* Lite version styles */
+      .lite-version {
+        display: none;
+        max-width: 800px;
+        width: 100%;
+        padding: 20px;
+      }
+      .lite-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid #333;
+      }
+      .lite-logo {
+        max-width: 200px;
+        margin-bottom: 16px;
+      }
+      .lite-title {
+        font-size: 28px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #BFA24B, #D4AF37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0 0 8px 0;
+      }
+      .lite-subtitle {
+        color: #999;
+        font-size: 16px;
+        margin: 0;
+      }
+      .lite-card {
         background: #1a1a1a;
         border: 1px solid #333;
         border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
       }
-      .error-message h2 {
-        color: #BFA24B;
-        margin: 0 0 16px 0;
+      .lite-card h3 {
+        color: #007A33;
+        margin: 0 0 12px 0;
+        font-size: 18px;
       }
-      .error-message p {
-        margin: 0 0 16px 0;
+      .lite-card p, .lite-card li {
         color: #ccc;
-      }
-      .error-message ul {
-        text-align: left;
-        margin: 16px 0;
-        padding-left: 20px;
-      }
-      .error-message li {
+        line-height: 1.6;
         margin: 8px 0;
-        color: #ccc;
       }
+      .lite-card ul {
+        padding-left: 20px;
+        margin: 12px 0;
+      }
+      .lite-cta {
+        display: inline-block;
+        background: linear-gradient(135deg, #007A33, #009940);
+        color: white;
+        padding: 14px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 8px;
+      }
+      .lite-cta:hover {
+        opacity: 0.9;
+      }
+      .lite-dates {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      .lite-date-item {
+        background: #252525;
+        padding: 16px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .lite-date-item strong {
+        color: #BFA24B;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .lite-footer {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid #333;
+        color: #666;
+        font-size: 14px;
+      }
+      .lite-reload-notice {
+        background: #252525;
+        padding: 16px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 24px;
+        color: #999;
+        font-size: 14px;
+      }
+      .lite-reload-btn {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-left: 12px;
+      }
+      .lite-reload-btn:hover {
+        background: #444;
+      }
+      
       @keyframes spin {
         to { transform: rotate(360deg); }
       }
@@ -86,10 +176,10 @@
       /* Hide loading shell when app mounts */
       .app-loaded .loading-shell { display: none !important; }
       
-      /* Show error after timeout */
+      /* Show lite version after timeout */
       .app-timeout .loading-spinner { display: none; }
       .app-timeout .loading-text { display: none; }
-      .app-timeout .error-message { display: block; }
+      .app-timeout .lite-version { display: block; }
 
       /* Noscript styles */
       .noscript-container {
@@ -162,23 +252,84 @@
       <div class="loading-shell" id="loading-shell">
         <div class="loading-spinner"></div>
         <p class="loading-text">Carregando...</p>
-        <div class="error-message">
-          <h2>Ops! Algo deu errado</h2>
-          <p>A página não conseguiu carregar completamente.</p>
-          <ul>
-            <li>Pressione <strong>Ctrl+F5</strong> para recarregar</li>
-            <li>Tente em uma <strong>janela anônima</strong></li>
-            <li>Desabilite <strong>extensões</strong> temporariamente</li>
-            <li>Tente outro <strong>navegador</strong></li>
-          </ul>
-          <p style="margin-top:16px;font-size:14px;color:#666;">
-            Se o problema persistir, entre em contato conosco.
-          </p>
+        <!-- Lite version - shown when JS fails to load -->
+        <div class="lite-version">
+          <div class="lite-reload-notice">
+            Carregando versão simplificada. 
+            <button class="lite-reload-btn" onclick="location.reload()">Tentar versão completa</button>
+          </div>
+          
+          <div class="lite-header">
+            <img src="https://storage.googleapis.com/gpt-engineer-file-uploads/xTDe5m7TG4T7f7y6oZ0nMGr0Qsk1/uploads/1768182452853-icon.png" alt="Safety Innovation Awards" class="lite-logo">
+            <h1 class="lite-title">Safety Innovation Awards</h1>
+            <p class="lite-subtitle">Reconhecendo Inovações que Salvam Vidas</p>
+          </div>
+
+          <div class="lite-card">
+            <h3>🏆 Sobre o Prêmio</h3>
+            <p>O Safety Innovation Awards é o primeiro reconhecimento latino-americano dedicado a celebrar projetos inovadores em Segurança do Trabalho, Saúde Ocupacional e Bem-estar.</p>
+            <p>Inscreva seu projeto e tenha a chance de ser reconhecido no <strong>MSA Safety Summit 2026</strong> em São Paulo.</p>
+          </div>
+
+          <div class="lite-card">
+            <h3>📅 Datas Importantes</h3>
+            <div class="lite-dates">
+              <div class="lite-date-item">
+                <strong>Até 31/05/2026</strong>
+                <span>Inscrições Abertas</span>
+              </div>
+              <div class="lite-date-item">
+                <strong>01-30/06/2026</strong>
+                <span>Avaliação</span>
+              </div>
+              <div class="lite-date-item">
+                <strong>20/08/2026</strong>
+                <span>Premiação</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lite-card">
+            <h3>✅ Quem Pode Participar</h3>
+            <ul>
+              <li>Profissionais de SST em empresas da América Latina</li>
+              <li>Projetos implementados entre 2024-2026</li>
+              <li>Resultados mensuráveis comprovados</li>
+            </ul>
+          </div>
+
+          <div class="lite-card">
+            <h3>📝 Como se Inscrever</h3>
+            <p>Envie sua inscrição por e-mail com os seguintes dados:</p>
+            <ul>
+              <li>Nome completo, empresa e cargo</li>
+              <li>Título do projeto</li>
+              <li>Descrição do cenário atual, solução aplicada e resultados</li>
+              <li>Principal aprendizado</li>
+            </ul>
+            <a href="mailto:inscricoes@safetyawards.com.br?subject=Inscrição Safety Innovation Awards 2026" class="lite-cta">
+              📧 Enviar Inscrição por E-mail
+            </a>
+          </div>
+
+          <div class="lite-card">
+            <h3>📞 Contato</h3>
+            <p>Dúvidas? Entre em contato:</p>
+            <p><strong>E-mail:</strong> contato@safetyawards.com.br</p>
+          </div>
+
+          <div class="lite-footer">
+            <p>© 2026 Safety Innovation Awards. Todos os direitos reservados.</p>
+            <p style="margin-top: 8px; font-size: 12px;">
+              Versão lite para conexões lentas. 
+              <a href="javascript:location.reload()" style="color: #007A33;">Recarregar versão completa</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Timeout script - shows error if app doesn't load within 15 seconds (increased for slow connections) -->
+    <!-- Timeout script - shows lite version if app doesn't load within 15 seconds -->
     <script>
       window.__loadingTimeout = setTimeout(function() {
         document.body.classList.add('app-timeout');
