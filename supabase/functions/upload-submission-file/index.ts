@@ -8,9 +8,15 @@ const ALLOWED_ORIGINS = [
   'https://safety-awards-hub.lovable.app',
 ];
 
+// Include preview URLs for development
+const DEV_ORIGIN_PATTERN = /^https:\/\/.*\.lovable\.app$/;
+
 function getCorsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get('origin') || '';
-  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  
+  // Check if origin is in allowed list or matches dev pattern
+  const isAllowed = ALLOWED_ORIGINS.includes(origin) || DEV_ORIGIN_PATTERN.test(origin);
+  const allowedOrigin = isAllowed ? origin : ALLOWED_ORIGINS[0];
   
   return {
     'Access-Control-Allow-Origin': allowedOrigin,
@@ -36,6 +42,17 @@ const ALLOWED_EXTENSIONS = ['pdf', 'jpg', 'jpeg', 'png', 'mp4', 'mov'];
 const uploadAttempts = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 10 * 60 * 1000; // 10 minutes
 const MAX_UPLOADS_PER_WINDOW = 10; // Max 10 file uploads per 10 minutes per IP
+
+// Hash IP for privacy-compliant logging (consistent with create-submission)
+function hashIP(ip: string): string {
+  let hash = 0;
+  for (let i = 0; i < ip.length; i++) {
+    const char = ip.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(16);
+}
 
 function getClientIp(req: Request): string {
   return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
@@ -133,13 +150,14 @@ serve(async (req) => {
   }
 
   const clientIp = getClientIp(req);
-  console.log(`Upload request from IP: ${clientIp}`);
+  const ipHash = hashIP(clientIp);
+  console.log(`Upload request from IP hash: ${ipHash}`);
 
   try {
     // Check rate limit
     const rateCheck = checkRateLimit(clientIp);
     if (!rateCheck.allowed) {
-      console.log(`Rate limit exceeded for IP: ${clientIp}`);
+      console.log(`Rate limit exceeded for IP hash: ${ipHash}`);
       return new Response(
         JSON.stringify({ 
           error: 'Too many upload attempts. Please try again later.',
@@ -178,7 +196,7 @@ serve(async (req) => {
 
     // Validate file size
     if (file.size > MAX_FILE_SIZE) {
-      console.log(`File too large: ${file.size} bytes from IP: ${clientIp}`);
+      console.log(`File too large: ${file.size} bytes from IP hash: ${ipHash}`);
       return new Response(
         JSON.stringify({ error: 'File size exceeds 20MB limit' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -187,7 +205,7 @@ serve(async (req) => {
 
     // Validate file extension
     if (!validateFileExtension(file.name)) {
-      console.log(`Invalid file extension: ${file.name} from IP: ${clientIp}`);
+      console.log(`Invalid file extension: ${file.name} from IP hash: ${ipHash}`);
       return new Response(
         JSON.stringify({ error: 'Invalid file type. Allowed: PDF, JPG, PNG, MP4, MOV' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -197,7 +215,7 @@ serve(async (req) => {
     // Validate MIME type
     const expectedMime = getContentType(file.name);
     if (!ALLOWED_MIME_TYPES.includes(expectedMime)) {
-      console.log(`Invalid MIME type: ${expectedMime} from IP: ${clientIp}`);
+      console.log(`Invalid MIME type: ${expectedMime} from IP hash: ${ipHash}`);
       return new Response(
         JSON.stringify({ error: 'Invalid file type' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -209,7 +227,7 @@ serve(async (req) => {
     const uint8Array = new Uint8Array(arrayBuffer);
     
     if (!validateMagicNumbers(uint8Array, expectedMime)) {
-      console.log(`Magic number validation failed for: ${file.name} from IP: ${clientIp}`);
+      console.log(`Magic number validation failed for: ${file.name} from IP hash: ${ipHash}`);
       return new Response(
         JSON.stringify({ error: 'File content does not match its extension' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -242,7 +260,7 @@ serve(async (req) => {
       );
     }
 
-    console.log(`File uploaded successfully: ${filePath} from IP: ${clientIp}`);
+    console.log(`File uploaded successfully: ${filePath} from IP hash: ${ipHash}`);
 
     return new Response(
       JSON.stringify({ 

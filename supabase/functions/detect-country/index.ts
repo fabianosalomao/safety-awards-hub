@@ -1,11 +1,42 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+// Allowed origins for CORS - restrict to production domains only
+const ALLOWED_ORIGINS = [
+  'https://sia.safetysummit.com.br',
+  'https://www.sia.safetysummit.com.br',
+  'https://safety-awards-hub.lovable.app',
+];
+
+// Include preview URLs for development
+const DEV_ORIGIN_PATTERN = /^https:\/\/.*\.lovable\.app$/;
+
+function getCorsHeaders(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') || '';
+  
+  // Check if origin is in allowed list or matches dev pattern
+  const isAllowed = ALLOWED_ORIGINS.includes(origin) || DEV_ORIGIN_PATTERN.test(origin);
+  const allowedOrigin = isAllowed ? origin : ALLOWED_ORIGINS[0];
+  
+  return {
+    'Access-Control-Allow-Origin': allowedOrigin,
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  };
+}
+
+// Hash IP for privacy-compliant logging
+function hashIP(ip: string): string {
+  let hash = 0;
+  for (let i = 0; i < ip.length; i++) {
+    const char = ip.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(16);
+}
 
 serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+  
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -16,7 +47,8 @@ serve(async (req) => {
                   || req.headers.get("x-real-ip") 
                   || "unknown";
 
-    console.log("Detecting country for IP:", clientIP);
+    const ipHash = hashIP(clientIP);
+    console.log("Detecting country for IP hash:", ipHash);
 
     // Use free geolocation API (ip-api.com - 45 requests/min free tier)
     const geoResponse = await fetch(`http://ip-api.com/json/${clientIP}?fields=countryCode,status`);
