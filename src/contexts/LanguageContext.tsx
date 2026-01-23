@@ -7,54 +7,63 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (pt: string, es: string) => string;
-  isLoading: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'user-language-preference';
+const DETECTION_TIMEOUT = 3000; // 3 seconds max for geolocation
+
+// Get initial language synchronously (no blocking)
+const getInitialLanguage = (): Language => {
+  // Check localStorage first
+  const saved = localStorage.getItem(STORAGE_KEY) as Language | null;
+  if (saved === 'pt' || saved === 'es') return saved;
+  
+  // Quick browser language check
+  const browserLang = navigator.language.toLowerCase();
+  return browserLang.startsWith('es') ? 'es' : 'pt';
+};
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguageState] = useState<Language>('pt');
-  const [isLoading, setIsLoading] = useState(true);
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
 
   useEffect(() => {
-    const detectLanguage = async () => {
-      // 1. Check for saved user preference
-      const savedPreference = localStorage.getItem(STORAGE_KEY) as Language | null;
-      if (savedPreference && (savedPreference === 'pt' || savedPreference === 'es')) {
-        setLanguageState(savedPreference);
-        setIsLoading(false);
-        return;
-      }
+    // Skip detection if user already has a preference
+    if (localStorage.getItem(STORAGE_KEY)) return;
 
-      // 2. Detect by geolocation
+    // Background detection with timeout - does NOT block rendering
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), DETECTION_TIMEOUT);
+
+    const detectInBackground = async () => {
       try {
-        const { data, error } = await supabase.functions.invoke('detect-country');
-        
-        if (!error && data?.language) {
-          setLanguageState(data.language);
-          setIsLoading(false);
-          return;
-        }
-      } catch (error) {
-        console.log('Geolocation detection failed, using browser language');
-      }
+        const { data, error } = await supabase.functions.invoke('detect-country', {
+          body: {},
+        });
 
-      // 3. Fallback: use browser language
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('es')) {
-        setLanguageState('es');
+        if (!error && data?.language && (data.language === 'pt' || data.language === 'es')) {
+          // Only update if different and user hasn't manually selected
+          if (!localStorage.getItem(STORAGE_KEY) && data.language !== language) {
+            setLanguageState(data.language);
+          }
+        }
+      } catch {
+        // Silently fail - we already have a working default
+      } finally {
+        clearTimeout(timeoutId);
       }
-      
-      setIsLoading(false);
     };
 
-    detectLanguage();
+    detectInBackground();
+
+    return () => {
+      controller.abort();
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const setLanguage = (lang: Language) => {
-    // Save manual user preference
     localStorage.setItem(STORAGE_KEY, lang);
     setLanguageState(lang);
   };
@@ -62,7 +71,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const t = (pt: string, es: string) => (language === 'pt' ? pt : es);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, isLoading }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
