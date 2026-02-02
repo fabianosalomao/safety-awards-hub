@@ -9,9 +9,9 @@ declare global {
   }
 }
 
-// Clear loading timeout and mark app as loaded
-if (window.__loadingTimeout) {
-  clearTimeout(window.__loadingTimeout);
+// Clear fallback timeout and mark app as loaded
+if ((window as any).__fallbackTimeout) {
+  clearTimeout((window as any).__fallbackTimeout);
 }
 document.body.classList.add('app-loaded');
 
