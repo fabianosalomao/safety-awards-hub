@@ -89,6 +89,17 @@
       /* Show fallback when JS fails (via timeout class added by inline script) */
       .js-failed .loading-shell { display: none !important; }
       .js-failed .fallback-site { display: block !important; }
+    </style>
+    
+    <!-- CRITICAL: Handle JavaScript completely disabled -->
+    <noscript>
+      <style>
+        /* When JS is disabled, hide loading and show fallback immediately */
+        .loading-shell { display: none !important; }
+        .fallback-site { display: block !important; }
+      </style>
+    </noscript>
+    <style>
       
       /* Header */
       .fallback-header {
