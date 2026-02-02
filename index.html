@@ -22,12 +22,28 @@
     <meta name="twitter:description" content="Prêmio latino-americano que reconhece e celebra projetos inovadores em segurança do trabalho. Submeta seu projeto e concorra ao reconhecimento.">
 
     <!-- Fallback styles - prevents black screen if CSS/JS fails -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --bg-dark: #0D0D0D;
+        --bg-card: #141414;
+        --text-white: #FAFAFA;
+        --text-muted: #999999;
+        --green-primary: #007A33;
+        --gold-accent: #BFA24B;
+        --gold-light: #D4B85A;
+        --border-color: #2D2D2D;
+      }
+      
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      
       body { 
-        background-color: #0D0D0D; 
-        color: #FAFAFA;
+        background-color: var(--bg-dark); 
+        color: var(--text-white);
         font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        margin: 0;
+        line-height: 1.6;
       }
       
       /* Loading shell styles */
@@ -39,20 +55,19 @@
         min-height: 100vh;
         padding: 20px;
         text-align: center;
-        box-sizing: border-box;
       }
       .loading-spinner {
         width: 48px;
         height: 48px;
         border: 3px solid #333;
-        border-top-color: #007A33;
+        border-top-color: var(--green-primary);
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
       .loading-text {
         margin-top: 16px;
         font-size: 16px;
-        color: #999;
+        color: var(--text-muted);
       }
       
       @keyframes spin {
@@ -61,78 +76,526 @@
       
       /* Hide loading shell when app mounts */
       .app-loaded .loading-shell { display: none !important; }
+      .app-loaded .fallback-site { display: none !important; }
 
-      /* Noscript styles */
-      .noscript-container {
+      /* ============================================
+         FALLBACK STATIC SITE STYLES
+         ============================================ */
+      
+      .fallback-site {
+        display: none;
+      }
+      
+      /* Show fallback when JS fails (via timeout class added by inline script) */
+      .js-failed .loading-shell { display: none !important; }
+      .js-failed .fallback-site { display: block !important; }
+      
+      /* Header */
+      .fallback-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(13, 13, 13, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 16px 24px;
+      }
+      
+      .fallback-header-inner {
+        max-width: 1280px;
+        margin: 0 auto;
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .fallback-logo {
+        height: 40px;
+        width: auto;
+      }
+      
+      .fallback-nav {
+        display: flex;
+        gap: 24px;
+      }
+      
+      .fallback-nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      
+      .fallback-nav a:hover {
+        color: var(--text-white);
+      }
+      
+      @media (max-width: 768px) {
+        .fallback-nav { display: none; }
+      }
+      
+      /* Hero Section */
+      .fallback-hero {
+        min-height: 100vh;
+        display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 100vh;
-        padding: 20px;
         text-align: center;
-        background: #0D0D0D;
-        color: #FAFAFA;
-        font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        box-sizing: border-box;
+        padding: 120px 24px 80px;
+        position: relative;
+        background: linear-gradient(180deg, var(--bg-dark) 0%, #050505 100%);
       }
-      .noscript-container h1 {
-        color: #BFA24B;
+      
+      .fallback-hero::before {
+        content: '';
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(0, 122, 51, 0.15) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      
+      .fallback-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+      }
+      
+      .fallback-hero-logo {
+        height: 80px;
+        width: auto;
+        margin-bottom: 32px;
+      }
+      
+      @media (min-width: 768px) {
+        .fallback-hero-logo { height: 120px; }
+      }
+      
+      .fallback-hero h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 24px;
+      }
+      
+      .text-gold {
+        background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .fallback-hero p {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto 40px;
+      }
+      
+      .fallback-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+      }
+      
+      @media (min-width: 480px) {
+        .fallback-buttons {
+          flex-direction: row;
+          justify-content: center;
+        }
+      }
+      
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 32px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.2s;
+      }
+      
+      .btn-primary {
+        background: var(--green-primary);
+        color: white;
+        box-shadow: 0 4px 20px -5px rgba(0, 122, 51, 0.4);
+      }
+      
+      .btn-primary:hover {
+        background: #008f3d;
+        transform: translateY(-2px);
+      }
+      
+      .btn-outline {
+        background: transparent;
+        color: var(--gold-accent);
+        border: 1px solid rgba(191, 162, 75, 0.5);
+      }
+      
+      .btn-outline:hover {
+        background: rgba(191, 162, 75, 0.1);
+        border-color: var(--gold-accent);
+      }
+      
+      /* Section base */
+      .fallback-section {
+        padding: 80px 24px;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      
+      .fallback-section h2 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 700;
+        text-align: center;
         margin-bottom: 16px;
       }
-      .noscript-container .message {
-        max-width: 400px;
-        color: #ccc;
-        line-height: 1.6;
+      
+      .section-divider {
+        width: 96px;
+        height: 4px;
+        background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+        border-radius: 2px;
+        margin: 24px auto 48px;
       }
-      .noscript-container .solutions {
-        margin-top: 24px;
-        padding: 20px;
-        background: #1a1a1a;
-        border-radius: 8px;
-        text-align: left;
-        max-width: 400px;
+      
+      .fallback-section p.section-desc {
+        text-align: center;
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto 48px;
+        font-size: 1.125rem;
       }
-      .noscript-container .solutions-title {
-        color: #999;
+      
+      /* About Section */
+      .about-grid {
+        display: grid;
+        gap: 24px;
+      }
+      
+      @media (min-width: 768px) {
+        .about-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      
+      .about-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 32px;
+        text-align: center;
+      }
+      
+      .about-card-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 16px;
+        color: var(--green-primary);
+      }
+      
+      .about-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
         margin-bottom: 12px;
-        font-weight: bold;
       }
-      .noscript-container .solutions ul {
-        color: #999;
-        padding-left: 20px;
-        line-height: 1.8;
-        margin: 0;
+      
+      .about-card p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+      
+      /* Dates Section */
+      .dates-card {
+        background: var(--bg-card);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 16px;
+        padding: 48px;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .dates-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, transparent 50%, rgba(191, 162, 75, 0.1) 100%);
+        pointer-events: none;
+      }
+      
+      .dates-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 9999px;
+        color: #ef4444;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 24px;
+      }
+      
+      .dates-date {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      
+      .dates-subtitle {
+        color: var(--text-muted);
+        margin-bottom: 24px;
+      }
+      
+      .dates-note {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        position: relative;
+        z-index: 1;
+      }
+      
+      /* Submit CTA Section */
+      .fallback-cta {
+        text-align: center;
+        padding: 100px 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .fallback-cta::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 400px;
+        background: radial-gradient(ellipse, rgba(0, 122, 51, 0.2) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      
+      .fallback-cta h2 {
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+        margin-bottom: 16px;
+      }
+      
+      .fallback-cta p {
+        color: var(--text-muted);
+        font-size: 1.125rem;
+        max-width: 600px;
+        margin: 0 auto 40px;
+      }
+      
+      .fallback-cta .btn-primary {
+        padding: 20px 48px;
+        font-size: 1.25rem;
+      }
+      
+      .cta-note {
+        margin-top: 24px;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+      
+      /* Footer */
+      .fallback-footer {
+        border-top: 1px solid var(--border-color);
+        padding: 48px 24px;
+        text-align: center;
+      }
+      
+      .fallback-footer-logo {
+        height: 48px;
+        margin-bottom: 24px;
+      }
+      
+      .fallback-footer p {
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+      
+      .fallback-footer a {
+        color: var(--gold-accent);
+        text-decoration: none;
+      }
+      
+      .fallback-footer a:hover {
+        text-decoration: underline;
+      }
+      
+      /* Noscript message */
+      .noscript-banner {
+        background: rgba(239, 68, 68, 0.1);
+        border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+        color: #fca5a5;
+        padding: 12px 24px;
+        text-align: center;
+        font-size: 0.875rem;
+        position: fixed;
+        top: 73px;
+        left: 0;
+        right: 0;
+        z-index: 99;
       }
     </style>
   </head>
 
   <body>
-    <!-- Noscript fallback for users with JavaScript disabled -->
-    <noscript>
-      <div class="noscript-container">
-        <h1>JavaScript Necessário</h1>
-        <p class="message">
-          Este site requer JavaScript para funcionar. Por favor, habilite o JavaScript no seu navegador e tente novamente.
-        </p>
-        <div class="solutions">
-          <p class="solutions-title">Soluções:</p>
-          <ul>
-            <li>Pressione Ctrl+F5 para recarregar a página</li>
-            <li>Tente em uma janela anônima/privada</li>
-            <li>Desabilite extensões do navegador temporariamente</li>
-            <li>Tente outro navegador (Chrome, Firefox, Edge)</li>
-            <li>Verifique se o JavaScript está habilitado nas configurações</li>
-          </ul>
-        </div>
-      </div>
-    </noscript>
+    <!-- Timeout: If JS doesn't load in 12s, show fallback -->
+    <script>
+      window.__fallbackTimeout = setTimeout(function() {
+        document.body.classList.add('js-failed');
+      }, 12000);
+    </script>
 
     <div id="root">
       <!-- Loading shell - shown before React mounts -->
       <div class="loading-shell" id="loading-shell">
         <div class="loading-spinner"></div>
         <p class="loading-text">Carregando...</p>
+      </div>
+
+      <!-- Static Fallback Site - shown when JS fails -->
+      <div class="fallback-site">
+        <!-- Noscript banner for JS disabled -->
+        <noscript>
+          <div class="noscript-banner">
+            ⚠️ JavaScript está desabilitado. Algumas funcionalidades podem não estar disponíveis.
+          </div>
+        </noscript>
+
+        <!-- Header -->
+        <header class="fallback-header">
+          <div class="fallback-header-inner">
+            <img 
+              src="https://storage.googleapis.com/gpt-engineer-file-uploads/xTDe5m7TG4T7f7y6oZ0nMGr0Qsk1/uploads/1768182452853-icon.png" 
+              alt="Safety Innovation Awards" 
+              class="fallback-logo"
+            />
+            <nav class="fallback-nav">
+              <a href="#about">Sobre</a>
+              <a href="#dates">Prazos</a>
+              <a href="#submit">Inscrição</a>
+            </nav>
+          </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="fallback-hero">
+          <div class="fallback-hero-content">
+            <img 
+              src="https://storage.googleapis.com/gpt-engineer-file-uploads/xTDe5m7TG4T7f7y6oZ0nMGr0Qsk1/social-images/social-1768153397063-CROMÁTICO EM FUNDO CLARO-1.jpg" 
+              alt="Safety Innovation Awards 2026" 
+              class="fallback-hero-logo"
+            />
+            <h1>
+              Reconhecendo inovações que<br/>
+              <span class="text-gold">salvam vidas</span>
+            </h1>
+            <p>
+              Tecnologia que protege vidas. Projetos que inspiram o futuro da segurança na América Latina.
+            </p>
+            <div class="fallback-buttons">
+              <a href="#submit" class="btn btn-primary">
+                Submeter Projeto →
+              </a>
+              <a href="#about" class="btn btn-outline">
+                Saiba Mais
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="fallback-section">
+          <h2>Sobre o <span class="text-gold">Prêmio</span></h2>
+          <div class="section-divider"></div>
+          <p class="section-desc">
+            O Safety Innovation Awards reconhece e celebra projetos inovadores em segurança do trabalho na América Latina, inspirando o futuro da proteção ocupacional.
+          </p>
+          <div class="about-grid">
+            <div class="about-card">
+              <svg class="about-card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+              <h3>Inovação em Segurança</h3>
+              <p>Reconhecemos soluções criativas que transformam a segurança ocupacional.</p>
+            </div>
+            <div class="about-card">
+              <svg class="about-card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <h3>Alcance Latino-Americano</h3>
+              <p>Projetos de toda a América Latina podem participar e concorrer ao reconhecimento.</p>
+            </div>
+            <div class="about-card">
+              <svg class="about-card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+              </svg>
+              <h3>Cerimônia no MSA Summit</h3>
+              <p>Os vencedores serão premiados durante o MSA Safety Summit 2026.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dates Section -->
+        <section id="dates" class="fallback-section">
+          <h2>Prazo final para <span class="text-gold">submissão</span></h2>
+          <div class="section-divider"></div>
+          <div class="dates-card">
+            <div class="dates-badge">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Prazo Final
+            </div>
+            <p class="dates-date text-gold">27 de Março</p>
+            <p class="dates-subtitle">Último dia para submissão</p>
+            <p class="dates-note">
+              Não perca a oportunidade de ter seu projeto reconhecido em toda América Latina.
+            </p>
+          </div>
+        </section>
+
+        <!-- Submit CTA Section -->
+        <section id="submit" class="fallback-cta">
+          <h2>Pronto para submeter seu <span class="text-gold">projeto</span>?</h2>
+          <p>
+            Compartilhe sua inovação em segurança e concorra ao reconhecimento que ela merece.
+          </p>
+          <a href="mailto:contato@safetyawards.com.br?subject=Submissão%20de%20Projeto%20-%20Safety%20Innovation%20Awards" class="btn btn-primary">
+            Submeter Projeto ✉️
+          </a>
+          <p class="cta-note">
+            Para submissões via formulário online, habilite JavaScript ou tente outro navegador.
+          </p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="fallback-footer">
+          <img 
+            src="https://storage.googleapis.com/gpt-engineer-file-uploads/xTDe5m7TG4T7f7y6oZ0nMGr0Qsk1/uploads/1768182452853-icon.png" 
+            alt="Safety Innovation Awards" 
+            class="fallback-footer-logo"
+          />
+          <p>
+            © 2026 Safety Innovation Awards. Todos os direitos reservados.<br/>
+            Uma iniciativa <a href="https://www.msasafety.com" target="_blank" rel="noopener">MSA Safety</a>
+          </p>
+        </footer>
       </div>
     </div>
 
