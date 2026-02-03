@@ -1,13 +1,30 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Award, Globe, Users } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const About = () => {
   const { t } = useLanguage();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  // Use native IntersectionObserver instead of framer-motion
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect(); // Once triggered, stop observing
+        }
+      },
+      { rootMargin: '-100px' }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const features = [
     {
@@ -41,25 +58,23 @@ const About = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
       
       <div className="section-container relative z-10" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+        <div
+          className={`text-center mb-16 transition-all duration-600 ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
             {t('O que é o', 'Qué es el')}{' '}
             <span className="text-gradient-gold">Safety Innovation Awards</span>
           </h2>
           <div className="section-divider mt-6" />
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+          <div
+            className={`space-y-6 transition-all duration-600 delay-200 ${
+              isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+            }`}
           >
             <p className="text-lg text-muted-foreground leading-relaxed">
               {t(
@@ -79,13 +94,12 @@ const About = () => {
                 'Porque las innovaciones que salvan vidas merecen reconocimiento.'
               )}
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid gap-6"
+          <div
+            className={`grid gap-6 transition-all duration-600 delay-400 ${
+              isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+            }`}
           >
             {features.map((feature, index) => (
               <div
@@ -101,7 +115,7 @@ const About = () => {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

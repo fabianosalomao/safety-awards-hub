@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import logoDark from '@/assets/logo-2026.png';
-import thomasEdison from '@/assets/thomas-edison.jpg';
+import { useState } from 'react';
 
 const Hero = () => {
   const { t } = useLanguage();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [logoLoaded, setLogoLoaded] = useState(false);
 
   const scrollToSection = () => {
     const element = document.getElementById('about');
@@ -15,38 +15,52 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-[100svh] md:min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Parallax Background Image */}
+      {/* Background placeholder while image loads */}
+      <div className="absolute inset-0 bg-background" />
+      
+      {/* Parallax Background Image with progressive loading */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed max-md:bg-scroll max-md:bg-top"
-        style={{ backgroundImage: `url(${thomasEdison})` }}
+        className={`absolute inset-0 bg-cover bg-center bg-fixed max-md:bg-scroll max-md:bg-top transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ backgroundImage: `url(/thomas-edison.jpg)` }}
       />
       
+      {/* Preload image for progressive loading */}
+      <img 
+        src="/thomas-edison.jpg" 
+        alt="" 
+        className="hidden"
+        onLoad={() => setImageLoaded(true)}
+        loading="eager"
+        fetchPriority="high"
+      />
       
-      {/* Ambient glow effect */}
+      {/* Ambient glow effect - CSS only */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] opacity-60" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] opacity-40" />
       </div>
 
       <div className="section-container relative z-10 text-center py-24 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="mb-8"
-        >
+        {/* Logo with CSS animation */}
+        <div className="mb-8 animate-fade-up" style={{ animationDelay: '0ms' }}>
+          {/* Logo placeholder */}
+          <div className={`h-20 md:h-28 lg:h-32 mx-auto transition-opacity duration-500 ${logoLoaded ? 'opacity-0 absolute' : 'opacity-100'}`}>
+            <div className="h-full w-48 md:w-64 lg:w-72 mx-auto bg-muted/20 rounded-lg animate-pulse" />
+          </div>
           <img
-            src={logoDark}
+            src="/logo-2026.png"
             alt="Safety Innovation Awards"
-            className="h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto"
+            className={`h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto transition-opacity duration-500 ${logoLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoad={() => setLogoLoaded(true)}
+            loading="eager"
+            fetchPriority="high"
           />
-        </motion.div>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+        {/* Title with CSS animation */}
+        <h1
+          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-up"
+          style={{ animationDelay: '150ms' }}
         >
           {t(
             'Reconhecendo inovações que',
@@ -56,29 +70,27 @@ const Hero = () => {
           <span className="text-gradient-gold">
             {t('salvam vidas', 'salvan vidas')}
           </span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+        {/* Subtitle with CSS animation */}
+        <p
+          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up"
+          style={{ animationDelay: '300ms' }}
         >
           {t(
             'Tecnologia que protege vidas. Projetos que inspiram o futuro da segurança na América Latina.',
             'Innovación con propósito. Seguridad que transforma el futuro de América Latina.'
           )}
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        {/* CTA Buttons with CSS animation */}
+        <div
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-up"
+          style={{ animationDelay: '450ms' }}
         >
           <Button
             size="lg"
-            className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold glow-green"
+            className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold glow-green transition-transform hover:scale-105"
             asChild
           >
             <a href="#submit" className="flex items-center gap-2">
@@ -89,38 +101,35 @@ const Hero = () => {
           <Button
             variant="outline"
             size="lg"
-            className="border-accent/50 text-accent hover:bg-accent/10 hover:border-accent px-8 py-6 text-lg"
+            className="border-accent/50 text-accent hover:bg-accent/10 hover:border-accent px-8 py-6 text-lg transition-all hover:scale-105"
             asChild
           >
             <a href="#about">
               {t('Saiba Mais', 'Conocer Más')}
             </a>
           </Button>
-        </motion.div>
+        </div>
 
-        {/* Photo credit */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="text-xs text-muted-foreground/70 mt-8 italic"
+        {/* Photo credit with CSS animation */}
+        <p
+          className="text-xs text-muted-foreground/70 mt-8 italic animate-fade-in"
+          style={{ animationDelay: '600ms' }}
         >
           {t(
             '*(foto) Thomas Edison - Inspirados por Edison, reconhecemos hoje os inovadores da segurança.',
             '*(foto) Thomas Edison - Inspirados por Edison, reconocemos hoy a los innovadores de la seguridad.'
           )}
-        </motion.p>
+        </p>
 
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+        {/* Scroll indicator with CSS animation */}
+        <button
           onClick={scrollToSection}
-          className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors animate-fade-in"
+          style={{ animationDelay: '900ms' }}
           aria-label="Scroll to content"
         >
           <ChevronDown className="w-8 h-8 animate-bounce" />
-        </motion.button>
+        </button>
       </div>
     </section>
   );
