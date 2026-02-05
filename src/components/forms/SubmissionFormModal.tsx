@@ -318,7 +318,7 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
 
                 <div className="space-y-2">
                   <Label htmlFor="current_scenario">
-                    {t('Cenário atual / Desafio', 'Escenario actual / Desafío')} *
+                    {t('Cenário encontrado que motivou a inovação', 'Escenario encontrado que motivó la innovación')} *
                   </Label>
                   <Textarea
                     id="current_scenario"
