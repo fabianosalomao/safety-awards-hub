@@ -43,7 +43,7 @@ const Dates = () => {
                 <Calendar className="w-10 h-10 text-accent" />
                 <div className="text-left">
                   <p className="text-4xl md:text-5xl font-bold text-gradient-gold">
-                    27 {t('de Março', 'de Marzo')}
+                    13 {t('de Março', 'de Marzo')}
                   </p>
                   <p className="text-muted-foreground">
                     {t('Último dia para submissão', 'Último día para envío')}
