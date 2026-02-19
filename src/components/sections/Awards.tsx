@@ -80,30 +80,25 @@ const Awards = () => {
                 <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center">
                   <Trophy className="w-7 h-7 text-accent" />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gradient-gold">
-                    {t('Prêmio Principal', 'Premio Principal')}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t('Para o projeto vencedor', 'Para el proyecto ganador')}
-                  </p>
-                </div>
+                <h3 className="text-xl font-bold text-gradient-gold">
+                  {t('Primeiro Lugar', 'Primer Lugar')}
+                </h3>
               </div>
               <div className="p-4 rounded-lg bg-accent/10 border border-accent/20 mb-4">
                 <div className="flex items-center gap-3">
                   <Plane className="w-6 h-6 text-accent" />
                   <span className="font-semibold">
                     {t(
-                      'Visita à MSA Internacional durante a NSC Week',
-                      'Visita a MSA Internacional durante la NSC Week'
+                      'Visita às instalações corporativas da MSA Safety e acesso ao NSC Safety Congress & Expo.',
+                      'Visita a las instalaciones de MSA Safety Corporativo y acceso al NSC Safety Congress & Expo.'
                     )}
                   </span>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">
                 {t(
-                  'Uma experiência exclusiva para conhecer as inovações globais em segurança.',
-                  'Una experiencia exclusiva para conocer las innovaciones globales en seguridad.'
+                  'Uma visita guiada para conhecer de perto as inovações que estão definindo o futuro da segurança em nível mundial.',
+                  'Un recorrido diseñado para conocer de primera mano las innovaciones que están definiendo el futuro de la seguridad a nivel mundial.'
                 )}
               </p>
             </div>
