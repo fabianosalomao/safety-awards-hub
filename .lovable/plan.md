@@ -1,129 +1,46 @@
 
-# Plano de Otimização para 100% de Carregamento
+## Centralizar ultima linha de cards nas secoes Prerequisites e Committee
 
-## Objetivo
-Garantir que todos os usuários visualizem o site principal, eliminando os timeouts que redirecionam para a versão lite.
+### Problema
+Em desktop (lg+), quando a ultima linha do grid nao preenche todas as colunas, os cards ficam alinhados a esquerda, causando desequilibrio visual.
 
----
+### Solucao: Fine Grid com col-start dinamico
 
-## Causa Raiz Identificada
+Usar grids com o dobro de colunas e fazer cada card ocupar 2x, permitindo centralizar a ultima linha com `col-start`.
 
-O timeout ocorre porque o JavaScript demora mais de 15 segundos para executar completamente em alguns dispositivos/conexões. As causas são:
+### Mudancas necessarias
 
-1. **Chamada bloqueante à Edge Function `detect-country`** - pode falhar ou demorar muito
-2. **Bundle JavaScript grande** sem code splitting
-3. **Imagens carregadas síncronamente** dentro do bundle
-4. **Animações pesadas na inicialização**
+**1. tailwind.config.ts** - Estender gridTemplateColumns para suportar 16 colunas (Secao B precisa):
 
----
-
-## Solução em 4 Partes
-
-### Parte 1: Tornar a Detecção de País Não-Bloqueante
-
-Modificar `LanguageContext.tsx` para que a UI seja renderizada imediatamente com um idioma padrão, e a detecção de país aconteça em segundo plano.
-
-**Alterações:**
-- Remover o estado `isLoading` que bloqueia a renderização
-- Iniciar com idioma padrão (PT) imediatamente
-- Fazer a detecção em background e atualizar silenciosamente
-- Adicionar timeout de 3 segundos na chamada da Edge Function
-- Se falhar, usar idioma do navegador como fallback
-
-### Parte 2: Lazy Loading de Componentes Pesados
-
-Implementar lazy loading com `React.lazy()` e `Suspense` para componentes que não são críticos para o First Paint.
-
-**Componentes a serem lazy loaded:**
-- `Committee.tsx` (contém 11 imagens)
-- `SubmissionFormModal.tsx` (só abre sob demanda)
-- `Awards.tsx`
-- `EvaluationCriteria.tsx`
-- `Process.tsx`
-- `Integration.tsx`
-
-### Parte 3: Otimização de Imagens
-
-- Mover imagens do comitê para carregamento dinâmico (não bundleadas)
-- Adicionar `loading="lazy"` em todas as imagens abaixo da dobra
-- Usar placeholder blur para imagens grandes
-
-### Parte 4: Configurar Code Splitting no Vite
-
-Atualizar `vite.config.ts` para separar o bundle em chunks menores:
-- Chunk principal (React core)
-- Chunk de UI (Radix, shadcn)
-- Chunk de animações (Framer Motion)
-- Chunk de formulários (react-hook-form, zod)
-
----
-
-## Detalhes Técnicos
-
-### Arquivo: `src/contexts/LanguageContext.tsx`
-
-```text
-Antes: O componente aguarda a resposta da Edge Function antes de renderizar
-Depois: Renderiza imediatamente com PT, atualiza em background se necessário
+Adicionar em `extend`:
+```
+gridTemplateColumns: {
+  '16': 'repeat(16, minmax(0, 1fr))',
+},
 ```
 
-A chamada à Edge Function terá:
-- Timeout de 3 segundos
-- AbortController para cancelar chamadas lentas
-- Fallback imediato para idioma do navegador
+**2. src/components/sections/Prerequisites.tsx** - Minima alteracao no grid:
 
-### Arquivo: `src/pages/Index.tsx`
+- Trocar classe do grid container de `grid md:grid-cols-2 lg:grid-cols-3` para `grid md:grid-cols-2 lg:grid-cols-6`
+- Cada card recebe `lg:col-span-2` (3 cards por linha = 6 colunas)
+- Para o primeiro card da ultima linha incompleta (index 3, pois 5 % 3 = 2 remainder), aplicar `lg:col-start-2` para centralizar os 2 ultimos
+- Remover a classe especial `index === 4 ? 'md:col-span-2 lg:col-span-1' : ''`
 
-```text
-Antes: Todos componentes importados estaticamente
-Depois: Componentes abaixo da dobra carregados via React.lazy
-```
+Calculo: remainder=2, leftover=1, offset=(1*2)/2=1, colStart=1+1=2
 
-Estrutura com Suspense:
-- Hero e About carregam imediatamente (acima da dobra)
-- Outros componentes carregam quando necessário
+**3. src/components/sections/Committee.tsx** - Minima alteracao no grid:
 
-### Arquivo: `src/components/sections/Committee.tsx`
+- Trocar classe do grid container de `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4` para `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-16`
+- Cada card recebe `lg:col-span-4` (4 cards por linha = 16 colunas)
+- Para o primeiro card da ultima linha (index 8, pois 11 % 4 = 3 remainder), aplicar `lg:col-start-3` para centralizar os 3 ultimos
+- Calculo: remainder=3, leftover=1, offset=(1*4)/2=2, colStart=2+1=3
 
-```text
-Antes: 11 imagens importadas via import estático
-Depois: Imagens carregadas via URL dinâmica com lazy loading
-```
+### Validacao
+- Em lg+ (1280px, 1440px): Secao A tera 3+2(centralizados), Secao B tera 4+4+3(centralizados)
+- Em sm/md: nenhuma alteracao, mantendo grids originais
+- Nenhuma alteracao visual alem do alinhamento horizontal
 
-### Arquivo: `vite.config.ts`
-
-Adicionar configuração de manualChunks para separar:
-- vendor-react (react, react-dom, react-router)
-- vendor-ui (radix, lucide)
-- vendor-animation (framer-motion)
-- vendor-forms (react-hook-form, zod)
-
----
-
-## Benefícios Esperados
-
-| Métrica | Antes | Depois |
-|---------|-------|--------|
-| Bundle inicial | ~800KB+ | ~200KB |
-| Time to Interactive | 8-15s | 2-4s |
-| Taxa de sucesso | ~95% | ~99.9% |
-
----
-
-## Ordem de Implementação
-
-1. **LanguageContext.tsx** - Remover bloqueio da detecção de país
-2. **vite.config.ts** - Adicionar code splitting
-3. **Index.tsx** - Implementar lazy loading de componentes
-4. **Committee.tsx** - Otimizar carregamento de imagens
-5. **Hero.tsx/Footer.tsx** - Adicionar lazy loading em imagens
-
----
-
-## Riscos e Mitigações
-
-| Risco | Mitigação |
-|-------|-----------|
-| Flash de idioma errado | Transição suave se mudar de PT→ES |
-| Componentes não carregam | Fallback com skeleton/loading |
-| Imagens quebradas | Placeholder padrão + lazy load |
+### Detalhes tecnicos
+- O calculo sera feito de forma dinamica via `map` index para suportar futuras mudancas no numero de itens
+- Gaps e espacamentos existentes serao mantidos
+- Apenas classes Tailwind serao usadas, sem CSS customizado adicional
