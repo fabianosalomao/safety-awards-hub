@@ -19,14 +19,14 @@ const Integration = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Compartilhe e', 'Comparta y')}{' '}
-            <span className="text-gradient-gold">{t('Divulgue', 'Difunda')}</span>
+            {t('Compartilhe e', 'Pasa la')}{' '}
+            <span className="text-gradient-gold">{t('Divulgue', 'voz')}</span>
           </h2>
           <div className="section-divider mt-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">
             {t(
               'Ajude a espalhar sobre o Safety Innovation Awards.',
-              'Ayude a difundir sobre el Safety Innovation Awards.'
+              'Ayúdanos a compartir para conocer más iniciativas que han ayudado a crecer la cultura de seguridad y poder reconocerlas.'
             )}
           </p>
         </motion.div>
@@ -42,14 +42,8 @@ const Integration = () => {
               <Linkedin className="w-8 h-8 text-[#0A66C2]" />
             </div>
             <h3 className="text-xl font-bold mb-3">
-              {t('Siga-nos no LinkedIn', 'Síganos en LinkedIn')}
+              {t('Siga-nos no LinkedIn', 'Síguenos en LinkedIn')}
             </h3>
-            <p className="text-muted-foreground mb-6">
-              {t(
-                'Acompanhe novidades e atualizações sobre o prêmio.',
-                'Siga las novedades y actualizaciones sobre el premio.'
-              )}
-            </p>
             <Button
               variant="outline"
               className="border-[#0A66C2]/50 text-[#0A66C2] hover:bg-[#0A66C2]/10"
@@ -77,14 +71,8 @@ const Integration = () => {
               <QrCode className="w-8 h-8 text-accent" />
             </div>
             <h3 className="text-xl font-bold mb-3">
-              {t('QR Code para Divulgação', 'QR Code para Difusión')}
+              {t('QR Code para Divulgação', 'Código QR para compartir')}
             </h3>
-            <p className="text-muted-foreground mb-6">
-              {t(
-                'Use em materiais impressos e apresentações.',
-                'Use en materiales impresos y presentaciones.'
-              )}
-            </p>
             <div className="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center p-2">
               <img src={qrCodeImage} alt="QR Code Safety Innovation Awards" className="w-full h-full object-contain" />
             </div>
