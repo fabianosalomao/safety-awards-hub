@@ -1,28 +1,20 @@
 
 
-## Correções de conteúdo na seção "Compartilhe e Divulgue"
+## Adicionar autor na citação da seção Manifesto
 
-Todas as mudanças serão feitas em um único arquivo: `src/components/sections/Integration.tsx`, que já usa o sistema `t(pt, es)` para i18n.
+### Arquivo: `src/components/sections/Manifesto.tsx`
 
-### Mudanças
+Dentro do `<blockquote>`, logo após o `<p>` da citação (linha 103), inserir um `<footer>` com nome e cargo centralizados:
 
-**1. Textos em Espanhol (ES) - atualizar segundo argumento do `t()`:**
+```
+<footer className="mt-6 text-center">
+  <p className="text-sm font-medium text-foreground/80">Maurício Alvares</p>
+  <p className="mt-1 text-xs text-foreground/60">MSA-LAR</p>
+</footer>
+```
 
-| Local | Atual (ES) | Novo (ES) |
-|-------|-----------|-----------|
-| Titulo H2 (parte 1) | "Comparta y" | "Pasa la" |
-| Titulo H2 (parte 2, gradient) | "Difunda" | "voz" |
-| Subtitulo | "Ayude a difundir sobre el Safety Innovation Awards." | "Ayudanos a compartir para conocer mas iniciativas que han ayudado a crecer la cultura de seguridad y poder reconocerlas." |
-| Card LinkedIn titulo | "Siganos en LinkedIn" | "Siguenos en LinkedIn" |
-| Card QR titulo | "QR Code para Difusion" | "Codigo QR para compartir" |
-
-**2. Remover descricoes em cinza dos cards (PT e ES):**
-
-Remover os dois blocos `<p className="text-muted-foreground mb-6">` dos cards LinkedIn e QR. Isso elimina as frases descritivas em ambos idiomas sem alterar layout.
-
-### Detalhes tecnicos
-
-- Arquivo unico: `src/components/sections/Integration.tsx`
-- Nenhuma mudanca de layout, estilos ou estrutura
-- Apenas atualizacao dos argumentos ES nas chamadas `t()` e remocao de 2 paragrafos `<p>`
-
+### Detalhes
+- Nenhuma outra alteração no componente
+- Usa `text-foreground/80` e `text-foreground/60` para opacidade sutil que funciona com o tema (em vez de `text-white` hardcoded)
+- Responsivo: `text-sm` e `text-xs` já são legíveis em mobile e menores que a citação (`text-2xl md:text-3xl`)
+- O nome e cargo não precisam de tradução (são nomes próprios)
