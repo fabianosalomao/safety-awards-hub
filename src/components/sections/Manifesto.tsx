@@ -101,6 +101,10 @@ const Manifesto = () => {
                 'Cuando innovamos en seguridad, no protegemos solo trabajadores — protegemos familias, comunidades y el futuro.'
               )}"
             </p>
+            <footer className="mt-6 text-center">
+              <p className="text-sm font-medium text-foreground/80">Maurício Alvares</p>
+              <p className="mt-1 text-xs text-foreground/60">MSA-LAR</p>
+            </footer>
           </blockquote>
         </motion.div>
       </div>
