@@ -1,46 +1,28 @@
 
-## Centralizar ultima linha de cards nas secoes Prerequisites e Committee
 
-### Problema
-Em desktop (lg+), quando a ultima linha do grid nao preenche todas as colunas, os cards ficam alinhados a esquerda, causando desequilibrio visual.
+## Correções de conteúdo na seção "Compartilhe e Divulgue"
 
-### Solucao: Fine Grid com col-start dinamico
+Todas as mudanças serão feitas em um único arquivo: `src/components/sections/Integration.tsx`, que já usa o sistema `t(pt, es)` para i18n.
 
-Usar grids com o dobro de colunas e fazer cada card ocupar 2x, permitindo centralizar a ultima linha com `col-start`.
+### Mudanças
 
-### Mudancas necessarias
+**1. Textos em Espanhol (ES) - atualizar segundo argumento do `t()`:**
 
-**1. tailwind.config.ts** - Estender gridTemplateColumns para suportar 16 colunas (Secao B precisa):
+| Local | Atual (ES) | Novo (ES) |
+|-------|-----------|-----------|
+| Titulo H2 (parte 1) | "Comparta y" | "Pasa la" |
+| Titulo H2 (parte 2, gradient) | "Difunda" | "voz" |
+| Subtitulo | "Ayude a difundir sobre el Safety Innovation Awards." | "Ayudanos a compartir para conocer mas iniciativas que han ayudado a crecer la cultura de seguridad y poder reconocerlas." |
+| Card LinkedIn titulo | "Siganos en LinkedIn" | "Siguenos en LinkedIn" |
+| Card QR titulo | "QR Code para Difusion" | "Codigo QR para compartir" |
 
-Adicionar em `extend`:
-```
-gridTemplateColumns: {
-  '16': 'repeat(16, minmax(0, 1fr))',
-},
-```
+**2. Remover descricoes em cinza dos cards (PT e ES):**
 
-**2. src/components/sections/Prerequisites.tsx** - Minima alteracao no grid:
-
-- Trocar classe do grid container de `grid md:grid-cols-2 lg:grid-cols-3` para `grid md:grid-cols-2 lg:grid-cols-6`
-- Cada card recebe `lg:col-span-2` (3 cards por linha = 6 colunas)
-- Para o primeiro card da ultima linha incompleta (index 3, pois 5 % 3 = 2 remainder), aplicar `lg:col-start-2` para centralizar os 2 ultimos
-- Remover a classe especial `index === 4 ? 'md:col-span-2 lg:col-span-1' : ''`
-
-Calculo: remainder=2, leftover=1, offset=(1*2)/2=1, colStart=1+1=2
-
-**3. src/components/sections/Committee.tsx** - Minima alteracao no grid:
-
-- Trocar classe do grid container de `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4` para `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-16`
-- Cada card recebe `lg:col-span-4` (4 cards por linha = 16 colunas)
-- Para o primeiro card da ultima linha (index 8, pois 11 % 4 = 3 remainder), aplicar `lg:col-start-3` para centralizar os 3 ultimos
-- Calculo: remainder=3, leftover=1, offset=(1*4)/2=2, colStart=2+1=3
-
-### Validacao
-- Em lg+ (1280px, 1440px): Secao A tera 3+2(centralizados), Secao B tera 4+4+3(centralizados)
-- Em sm/md: nenhuma alteracao, mantendo grids originais
-- Nenhuma alteracao visual alem do alinhamento horizontal
+Remover os dois blocos `<p className="text-muted-foreground mb-6">` dos cards LinkedIn e QR. Isso elimina as frases descritivas em ambos idiomas sem alterar layout.
 
 ### Detalhes tecnicos
-- O calculo sera feito de forma dinamica via `map` index para suportar futuras mudancas no numero de itens
-- Gaps e espacamentos existentes serao mantidos
-- Apenas classes Tailwind serao usadas, sem CSS customizado adicional
+
+- Arquivo unico: `src/components/sections/Integration.tsx`
+- Nenhuma mudanca de layout, estilos ou estrutura
+- Apenas atualizacao dos argumentos ES nas chamadas `t()` e remocao de 2 paragrafos `<p>`
+
