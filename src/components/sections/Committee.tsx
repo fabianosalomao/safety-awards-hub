@@ -170,14 +170,24 @@ const Committee = () => {
         </div>
 
         {/* Committee members grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {committeeMembers.map((member, index) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-16 gap-6">
+          {committeeMembers.map((member, index) => {
+            const cardsPerRow = 4;
+            const total = committeeMembers.length;
+            const remainder = total % cardsPerRow;
+            const firstOfLastRow = total - remainder;
+            const needsCenter = remainder > 0 && index === firstOfLastRow;
+            const leftover = cardsPerRow - remainder;
+            const colStart = needsCenter ? (leftover * 4) / 2 + 1 : undefined;
+
+            return (
             <motion.div
               key={member.id}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
-              className="card-elevated p-6 text-center group hover:scale-105 transition-transform duration-300"
+              className="card-elevated p-6 text-center group hover:scale-105 transition-transform duration-300 lg:col-span-4"
+              style={colStart ? { gridColumnStart: colStart } : undefined}
             >
               <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300 bg-muted">
                 <img
@@ -194,7 +204,8 @@ const Committee = () => {
               <h4 className="font-bold text-sm mb-1 leading-tight">{member.name}</h4>
               <p className="text-xs text-muted-foreground leading-tight">{member.role}</p>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

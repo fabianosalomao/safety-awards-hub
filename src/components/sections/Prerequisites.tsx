@@ -82,16 +82,24 @@ const Prerequisites = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {requirements.map((req, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-6">
+          {requirements.map((req, index) => {
+            const cardsPerRow = 3;
+            const total = requirements.length;
+            const remainder = total % cardsPerRow;
+            const firstOfLastRow = total - remainder;
+            const needsCenter = remainder > 0 && index === firstOfLastRow;
+            const leftover = cardsPerRow - remainder;
+            const colStart = needsCenter ? (leftover * 2) / 2 + 1 : undefined;
+
+            return (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-              className={`p-6 rounded-xl border-2 border-dashed border-accent/30 bg-accent/5 hover:border-accent/50 hover:bg-accent/10 transition-all duration-300 ${
-                index === 4 ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
+              className={`p-6 rounded-xl border-2 border-dashed border-accent/30 bg-accent/5 hover:border-accent/50 hover:bg-accent/10 transition-all duration-300 lg:col-span-2`}
+              style={colStart ? { gridColumnStart: colStart } : undefined}
             >
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
@@ -110,7 +118,8 @@ const Prerequisites = () => {
                 </div>
               </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
 
         <motion.div
