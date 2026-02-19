@@ -35,11 +35,14 @@ export type Database = {
       submissions: {
         Row: {
           company: string
+          country_dial_code: string | null
+          country_iso2: string | null
           created_at: string
           current_scenario: string
           email: string
           file_urls: string[] | null
           id: string
+          incentivador: string | null
           job_title: string
           main_learning: string
           name: string
@@ -53,11 +56,14 @@ export type Database = {
         }
         Insert: {
           company: string
+          country_dial_code?: string | null
+          country_iso2?: string | null
           created_at?: string
           current_scenario: string
           email: string
           file_urls?: string[] | null
           id?: string
+          incentivador?: string | null
           job_title: string
           main_learning: string
           name: string
@@ -71,11 +77,14 @@ export type Database = {
         }
         Update: {
           company?: string
+          country_dial_code?: string | null
+          country_iso2?: string | null
           created_at?: string
           current_scenario?: string
           email?: string
           file_urls?: string[] | null
           id?: string
+          incentivador?: string | null
           job_title?: string
           main_learning?: string
           name?: string
