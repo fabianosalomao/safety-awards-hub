@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X, Upload, FileText, Loader2, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,6 +10,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -26,6 +33,15 @@ interface SubmissionFormModalProps {
 const MAX_FILES = 5;
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
+const COUNTRIES = [
+  { iso: 'AR', dialCode: '+54', pt: 'Argentina', es: 'Argentina' },
+  { iso: 'BR', dialCode: '+55', pt: 'Brasil', es: 'Brasil' },
+  { iso: 'CL', dialCode: '+56', pt: 'Chile', es: 'Chile' },
+  { iso: 'CO', dialCode: '+57', pt: 'Colômbia', es: 'Colombia' },
+  { iso: 'MX', dialCode: '+52', pt: 'México', es: 'México' },
+  { iso: 'PE', dialCode: '+51', pt: 'Peru', es: 'Perú' },
+] as const;
+
 const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) => {
   const { t } = useLanguage();
   const { toast } = useToast();
@@ -38,9 +54,25 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    watch,
+    control,
   } = useForm<SubmissionFormData>({
     resolver: zodResolver(submissionSchema),
   });
+
+  const phoneValue = watch('phone');
+
+  const handleCountryChange = (iso: string) => {
+    const country = COUNTRIES.find(c => c.iso === iso);
+    if (!country) return;
+    setValue('country_iso2', country.iso as SubmissionFormData['country_iso2'], { shouldValidate: true });
+    setValue('country_dial_code', country.dialCode, { shouldValidate: true });
+    // Only auto-prefix DDI if phone is empty
+    if (!phoneValue || phoneValue.trim() === '') {
+      setValue('phone', country.dialCode + ' ', { shouldValidate: false });
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
@@ -83,7 +115,6 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
     const uploadedUrls: string[] = [];
     
     for (const file of files) {
-      // Use secure Edge Function for file uploads with server-side validation
       const formData = new FormData();
       formData.append('file', file);
       formData.append('fileCount', String(files.length));
@@ -118,14 +149,16 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
         fileUrls = await uploadFiles();
       }
 
-      // Use secure Edge Function for submission creation with server-side validation and rate limiting
       const response = await supabase.functions.invoke('create-submission', {
         body: {
           name: data.name,
           job_title: data.job_title,
           company: data.company,
           email: data.email,
-          phone: data.phone || null,
+          phone: data.phone,
+          country_iso2: data.country_iso2,
+          country_dial_code: data.country_dial_code,
+          incentivador: data.incentivador || null,
           project_title: data.project_title,
           current_scenario: data.current_scenario,
           solution_applied: data.solution_applied,
@@ -204,14 +237,11 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
                 <CheckCircle className="w-10 h-10 text-primary" />
               </div>
-              <h3 className="text-xl font-bold mb-3">
-                {t('Obrigado!', '¡Gracias!')}
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                {t(
-                  'Recebemos sua submissão com sucesso. Entraremos em contato em breve.',
-                  'Recibimos su proyecto con éxito. Nos pondremos en contacto pronto.'
-                )}
+              <p className="text-xl font-bold mb-2" style={{ color: 'hsl(var(--primary))' }}>
+                {t('Obrigado pelo envio.', 'Gracias por el envío.')}
+              </p>
+              <p className="text-lg mb-6 text-foreground">
+                {t('Boa sorte!', '¡Buena suerte!')}
               </p>
               <Button onClick={handleClose}>
                 {t('Fechar', 'Cerrar')}
@@ -258,16 +288,31 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="company">{t('Empresa', 'Empresa')} *</Label>
-                  <Input
-                    id="company"
-                    {...register('company')}
-                    className={errors.company ? 'border-destructive' : ''}
-                  />
-                  {errors.company && (
-                    <p className="text-sm text-destructive">{errors.company.message}</p>
-                  )}
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="company">{t('Empresa', 'Empresa')} *</Label>
+                    <Input
+                      id="company"
+                      {...register('company')}
+                      className={errors.company ? 'border-destructive' : ''}
+                    />
+                    {errors.company && (
+                      <p className="text-sm text-destructive">{errors.company.message}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="incentivador">{t('Incentivador', 'Impulsor')}</Label>
+                    <Input
+                      id="incentivador"
+                      {...register('incentivador')}
+                      placeholder={t('Quem incentivou (opcional)', 'Quién impulsó (opcional)')}
+                      className={errors.incentivador ? 'border-destructive' : ''}
+                    />
+                    {errors.incentivador && (
+                      <p className="text-sm text-destructive">{errors.incentivador.message}</p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -285,16 +330,44 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="phone">{t('Telefone', 'Teléfono')}</Label>
-                    <Input
-                      id="phone"
-                      {...register('phone')}
-                      className={errors.phone ? 'border-destructive' : ''}
+                    <Label>{t('País', 'País')} *</Label>
+                    <Controller
+                      name="country_iso2"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          value={field.value || ''}
+                          onValueChange={(val) => handleCountryChange(val)}
+                        >
+                          <SelectTrigger className={errors.country_iso2 ? 'border-destructive' : ''}>
+                            <SelectValue placeholder={t('Selecione o país', 'Seleccione el país')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {COUNTRIES.map((country) => (
+                              <SelectItem key={country.iso} value={country.iso}>
+                                {t(country.pt, country.es)} ({country.dialCode})
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
                     />
-                    {errors.phone && (
-                      <p className="text-sm text-destructive">{errors.phone.message}</p>
+                    {errors.country_iso2 && (
+                      <p className="text-sm text-destructive">{errors.country_iso2.message}</p>
                     )}
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phone">{t('Telefone', 'Teléfono')} *</Label>
+                  <Input
+                    id="phone"
+                    {...register('phone')}
+                    className={errors.phone ? 'border-destructive' : ''}
+                  />
+                  {errors.phone && (
+                    <p className="text-sm text-destructive">{errors.phone.message}</p>
+                  )}
                 </div>
               </div>
 

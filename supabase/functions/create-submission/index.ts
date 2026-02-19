@@ -27,6 +27,16 @@ const MAX_EMAIL_LENGTH = 255;
 const MAX_PHONE_LENGTH = 20;
 const MAX_FILE_URLS = 5;
 
+// Valid countries: ISO2 -> DDI
+const VALID_COUNTRIES: Record<string, string> = {
+  AR: '+54',
+  MX: '+52',
+  BR: '+55',
+  PE: '+51',
+  CO: '+57',
+  CL: '+56',
+};
+
 // Simple hash function for IP anonymization
 function hashIP(ip: string): string {
   let hash = 0;
@@ -48,7 +58,6 @@ function getClientIp(req: Request): string {
   for (const header of headers) {
     const value = req.headers.get(header);
     if (value) {
-      // x-forwarded-for can contain multiple IPs
       return value.split(',')[0].trim();
     }
   }
@@ -94,19 +103,18 @@ function validateEmail(value: unknown): string {
   return email.toLowerCase();
 }
 
-function validatePhone(value: unknown): string | null {
-  if (value === null || value === undefined || value === '') {
-    return null;
+function validatePhone(value: unknown): string {
+  return validateString(value, MAX_PHONE_LENGTH, 'Phone');
+}
+
+function validateCountry(iso2: unknown, dialCode: unknown): { country_iso2: string; country_dial_code: string } {
+  if (typeof iso2 !== 'string' || !VALID_COUNTRIES[iso2]) {
+    throw new Error('Invalid country');
   }
-  const phone = validateOptionalString(value, MAX_PHONE_LENGTH, 'Phone');
-  if (phone) {
-    // Allow only digits, spaces, dashes, parentheses, and plus sign
-    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
-    if (!phoneRegex.test(phone)) {
-      throw new Error('Invalid phone format');
-    }
+  if (typeof dialCode !== 'string' || dialCode !== VALID_COUNTRIES[iso2]) {
+    throw new Error('Country dial code mismatch');
   }
-  return phone;
+  return { country_iso2: iso2, country_dial_code: dialCode };
 }
 
 function validateFileUrls(value: unknown): string[] {
@@ -119,7 +127,6 @@ function validateFileUrls(value: unknown): string[] {
   const urls: string[] = [];
   for (const url of value) {
     if (typeof url === 'string' && url.trim().length > 0) {
-      // Validate URL format - should be a path in our storage
       if (url.length > 500) {
         throw new Error('Invalid file URL');
       }
@@ -180,6 +187,9 @@ serve(async (req) => {
       );
     }
 
+    // Validate country
+    const countryData = validateCountry(body.country_iso2, body.country_dial_code);
+
     // Validate and sanitize all inputs
     const validatedData = {
       name: validateString(body.name, MAX_TEXT_LENGTH, 'Name'),
@@ -187,6 +197,9 @@ serve(async (req) => {
       company: validateString(body.company, MAX_TEXT_LENGTH, 'Company'),
       email: validateEmail(body.email),
       phone: validatePhone(body.phone),
+      country_iso2: countryData.country_iso2,
+      country_dial_code: countryData.country_dial_code,
+      incentivador: validateOptionalString(body.incentivador, MAX_TEXT_LENGTH, 'Incentivador'),
       project_title: validateString(body.project_title, MAX_TEXT_LENGTH, 'Project title'),
       current_scenario: validateString(body.current_scenario, MAX_TEXTAREA_LENGTH, 'Current scenario'),
       solution_applied: validateString(body.solution_applied, MAX_TEXTAREA_LENGTH, 'Solution applied'),

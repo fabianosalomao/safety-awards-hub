@@ -1,11 +1,16 @@
 import { z } from 'zod';
 
+export const VALID_COUNTRY_ISO2 = ['AR', 'MX', 'BR', 'PE', 'CO', 'CL'] as const;
+
 export const submissionSchema = z.object({
   name: z.string().trim().min(1, 'Nome é obrigatório').max(100, 'Nome deve ter no máximo 100 caracteres'),
   job_title: z.string().trim().min(1, 'Cargo é obrigatório').max(100, 'Cargo deve ter no máximo 100 caracteres'),
   company: z.string().trim().min(1, 'Empresa é obrigatória').max(100, 'Empresa deve ter no máximo 100 caracteres'),
   email: z.string().trim().email('Email inválido').max(255, 'Email deve ter no máximo 255 caracteres'),
-  phone: z.string().trim().max(20, 'Telefone deve ter no máximo 20 caracteres').optional().or(z.literal('')),
+  phone: z.string().trim().min(1, 'Telefone é obrigatório').max(20, 'Telefone deve ter no máximo 20 caracteres'),
+  country_iso2: z.enum(VALID_COUNTRY_ISO2, { required_error: 'País é obrigatório' }),
+  country_dial_code: z.string().min(1, 'DDI é obrigatório'),
+  incentivador: z.string().trim().max(100, 'Incentivador deve ter no máximo 100 caracteres').optional().or(z.literal('')),
   project_title: z.string().trim().min(1, 'Título do projeto é obrigatório').max(100, 'Título deve ter no máximo 100 caracteres'),
   current_scenario: z.string().trim().min(1, 'Cenário atual é obrigatório').max(2000, 'Cenário atual deve ter no máximo 2000 caracteres'),
   solution_applied: z.string().trim().min(1, 'Solução aplicada é obrigatória').max(3000, 'Solução aplicada deve ter no máximo 3000 caracteres'),
