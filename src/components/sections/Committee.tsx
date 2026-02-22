@@ -186,8 +186,7 @@ const Committee = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
-              className="card-elevated p-6 text-center group hover:scale-105 transition-transform duration-300 lg:col-span-4"
-              style={colStart ? { gridColumnStart: colStart } : undefined}
+              className={`card-elevated p-6 text-center group hover:scale-105 transition-transform duration-300 lg:col-span-4${needsCenter ? ' lg:[grid-column-start:3]' : ''}`}
             >
               <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300 bg-muted">
                 <img
