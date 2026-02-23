@@ -37,7 +37,7 @@ const EvaluationCriteria = () => {
     {
       icon: Users,
       weight: 20,
-      title: t('Impacto Cultural', 'Impacto Cultural'),
+      title: t('Impacto Cultural', 'Cultura de Compromiso'),
       description: t(
         'Transformação na cultura de segurança. Engajamento de colaboradores e lideranças.',
         'Transformación en la cultura de seguridad. Compromiso de colaboradores y líderes.'
@@ -57,7 +57,7 @@ const EvaluationCriteria = () => {
     {
       icon: Cpu,
       weight: 15,
-      title: t('Diferencial Tecnológico', 'Diferencial Tecnológico'),
+      title: t('Diferencial Tecnológico', 'Implementación Tecnológica'),
       description: t(
         'Uso de tecnologias emergentes. Potencial de escalabilidade e replicação.',
         'Uso de tecnologías emergentes. Potencial de escalabilidad y replicación.'

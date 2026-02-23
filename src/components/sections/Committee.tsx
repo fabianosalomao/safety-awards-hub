@@ -121,7 +121,7 @@ const Committee = () => {
       title: t('Imparcialidade', 'Imparcialidad'),
       description: t(
         'Garantia de diversidade e critérios objetivos.',
-        'Garantía de diversidad y criterios objetivos.'
+        'Diversidad y criterios objetivos.'
       ),
     },
   ];

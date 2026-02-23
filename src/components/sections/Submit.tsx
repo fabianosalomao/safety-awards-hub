@@ -28,13 +28,13 @@ const Submit = () => {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              {t('Pronto para submeter seu', 'Listo para enviar su')}{' '}
+              {t('Pronto para submeter seu', '¿Listo para enviar tu')}{' '}
               <span className="text-gradient-gold">{t('projeto', 'proyecto')}</span>?
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
               {t(
                 'Compartilhe sua inovação em segurança e concorra ao reconhecimento que ela merece.',
-                'Comparta su innovación en seguridad y compita por el reconocimiento que merece.'
+                'Comparte tu innovación en seguridad y deja que el impacto de tu trabajo se convierta en un referente en toda la región.'
               )}
             </p>
 
@@ -55,17 +55,22 @@ const Submit = () => {
               </Button>
             </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-sm text-muted-foreground mt-6"
-            >
-              {t(
+            {t(
                 'O formulário leva aproximadamente 15-20 minutos para ser preenchido.',
-                'El formulario toma aproximadamente 15-20 minutos para completarse.'
-              )}
-            </motion.p>
+                ''
+              ) && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="text-sm text-muted-foreground mt-6"
+              >
+                {t(
+                  'O formulário leva aproximadamente 15-20 minutos para ser preenchido.',
+                  ''
+                )}
+              </motion.p>
+            )}
           </motion.div>
         </div>
       </section>

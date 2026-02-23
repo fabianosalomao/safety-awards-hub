@@ -36,7 +36,7 @@ const Dates = () => {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/30 mb-6">
                 <AlertCircle className="w-5 h-5 text-destructive" />
                 <span className="text-destructive font-medium text-sm">
-                  {t('Prazo Final', 'Plazo Final')}
+                  {t('Prazo Final', 'Fecha límite')}
                 </span>
               </div>
               <div className="flex items-center justify-center gap-4 mb-4">
@@ -46,14 +46,14 @@ const Dates = () => {
                     13 {t('de Março', 'de Marzo')}
                   </p>
                   <p className="text-muted-foreground">
-                    {t('Último dia para submissão', 'Último día para envío')}
+                    {t('Último dia para submissão', 'Último día de recepción de proyectos')}
                   </p>
                 </div>
               </div>
               <p className="text-muted-foreground mt-6">
                 {t(
                   'Não perca a oportunidade de ter seu projeto reconhecido em toda América Latina.',
-                  'No pierda la oportunidad de tener su proyecto reconocido en toda América Latina.'
+                  'No dejes pasar la oportunidad de posicionar tu iniciativa y mostrar los resultados de tu proyecto a todo Latinoamérica.'
                 )}
               </p>
             </div>

@@ -24,22 +24,22 @@ const Process = () => {
       title: t('Encerramento das Inscrições', 'Cierre de las Inscripciones'),
       description: t(
         'Prazo final para submissão de projetos.',
-        'Plazo final para envío de proyectos.'
+        ''
       ),
     },
     {
       icon: Users,
       date: '16/03-27/03/2026',
-      title: t('1ª fase - Avaliação do Comitê', '1ª fase - Evaluación del Comité'),
+      title: t('1ª fase - Avaliação do Comitê', 'Evaluaciones'),
       description: t(
         'Análise criteriosa por especialistas do projeto submetido.',
-        'Análisis criterioso por especialistas del proyecto enviado.'
+        'Análisis detallado de cada proyecto a cargo del comité de especialistas.'
       ),
     },
     {
       icon: Presentation,
-      date: t('2ª Fase: 28/03 até 24/04', '2ª Fase: 28/03 hasta 24/04'),
-      title: t('Apresentação dos projetos finalistas', 'Presentación de los proyectos finalistas'),
+      date: t('2ª Fase: 28/03 até 24/04', '28/03 hasta 24/04'),
+      title: t('Apresentação dos projetos finalistas', 'Presentación de los Finalistas'),
       description: t(
         'Apresentação dos projetos para comitê avaliador.',
         'Presentación de los proyectos para comité evaluador.'
@@ -107,7 +107,7 @@ const Process = () => {
                       {item.date}
                     </span>
                     <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                    {item.description && <p className="text-sm text-muted-foreground">{item.description}</p>}
                   </div>
                 </div>
               </motion.div>

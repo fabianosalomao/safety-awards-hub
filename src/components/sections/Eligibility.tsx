@@ -22,7 +22,7 @@ const Eligibility = () => {
       title: t('Equipes de SST/EHS', 'Equipos de SST/EHS'),
       description: t(
         'Times de segurança que desenvolveram soluções criativas para desafios reais.',
-        'Equipos de seguridad que desarrollaron soluciones creativas para desafíos reales.'
+        'Equipos que desarrollaron soluciones creativas para resolver desafíos reales.'
       ),
     },
     {
@@ -30,7 +30,7 @@ const Eligibility = () => {
       title: t('Profissionais', 'Profesionales'),
       description: t(
         'Especialistas que lideram iniciativas transformadoras em suas organizações.',
-        'Especialistas que lideran iniciativas transformadoras en sus organizaciones.'
+        'Especialistas que lideran iniciativas de transformación dentro de sus organizaciones.'
       ),
     },
   ];
