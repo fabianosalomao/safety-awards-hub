@@ -79,7 +79,7 @@ const Hero = () => {
         >
           {t(
             'Tecnologia que protege vidas. Projetos que inspiram o futuro da segurança na América Latina.',
-            'Innovación con propósito. Seguridad que transforma el futuro de América Latina.'
+            'Innovación con propósito. Seguridad que transforma el futuro de Latinoamérica.'
           )}
         </p>
 
