@@ -64,8 +64,9 @@ const About = () => {
           }`}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('O que é o', 'Qué es el')}{' '}
+            {t('O que é o ', '¿Qué son los ')}
             <span className="text-gradient-gold">Safety Innovation Awards</span>
+            {t('', '?')}
           </h2>
           <div className="section-divider mt-6" />
         </div>
