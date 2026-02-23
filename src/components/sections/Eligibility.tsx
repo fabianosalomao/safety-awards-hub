@@ -45,14 +45,14 @@ const Eligibility = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Quem pode', 'Quién puede')}{' '}
-            <span className="text-gradient-gold">{t('participar', 'participar')}</span>
+            {t('Quem pode', '¿Quién puede')}{' '}
+            <span className="text-gradient-gold">{t('participar', 'participar?')}</span>
           </h2>
           <div className="section-divider mt-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">
             {t(
               'A submissão é livre para todos os perfis. Cada empresa pode ter no máximo 1 projeto finalista.',
-              'La participación es libre para todos los perfiles. Cada empresa puede tener máximo 1 proyecto finalista.'
+              'La convocatoria esta abierta para todos los perfiles y solo podrá haber un proyecto finalista por empresa.'
             )}
           </p>
         </motion.div>

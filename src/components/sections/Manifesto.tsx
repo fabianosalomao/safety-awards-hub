@@ -50,14 +50,14 @@ const Manifesto = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Por que este prêmio', 'Por qué este premio')}{' '}
-            <span className="text-gradient-gold">{t('existe', 'existe')}</span>
+            {t('Por que este prêmio', '¿Por qué MSA creó los')}{' '}
+            <span className="text-gradient-gold">{t('existe', 'Safety Innovation Awards?')}</span>
           </h2>
           <div className="section-divider mt-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">
             {t(
               'Acreditamos que reconhecer a excelência em segurança inspira toda uma indústria a evoluir.',
-              'Creemos que reconocer la excelencia en seguridad inspira a toda una industria a evolucionar.'
+              'En MSA creemos que reconocer la excelencia en seguridad inspira a las industrias a evolucionar.'
             )}
           </p>
         </motion.div>
