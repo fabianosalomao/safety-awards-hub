@@ -47,9 +47,11 @@ const Awards = () => {
                   <h3 className="text-xl font-bold">
                     {t('3 Finalistas', '3 Finalistas')}
                   </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t('Divulgação no MSA Safety Summit 2026', 'Presentación en MSA Safety Summit 2026')}
-                  </p>
+                  {t('Divulgação no MSA Safety Summit 2026', '') && (
+                    <p className="text-muted-foreground text-sm">
+                      {t('Divulgação no MSA Safety Summit 2026', '')}
+                    </p>
+                  )}
                 </div>
               </div>
               <ul className="space-y-3">
