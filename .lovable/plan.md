@@ -1,56 +1,24 @@
 
 
-## Spanish (ES) text corrections across 8 sections
+## ES-only text corrections in 3 sections
 
-All changes are ES-only string updates in `t()` calls. No PT text, layout, styles, or backend changes.
+All changes are minimal ES string updates in `t()` calls. No PT, layout, or backend changes.
 
 ### Files and changes
 
-**1. `src/components/sections/Manifesto.tsx`** (3 edits)
-- Line 17: "Cada innovacion..." -> "Cada solucion que reconocemos nace con una prioridad clara: proteger vidas."
-- Line 25: "Las empresas lideres..." -> "Las empresas lideres saben que cuidar a su equipo es una inversion, no un costo operativo."
-- Line 33: "...hacen la diferencia..." -> "...marcan la diferencia..."
+**1. `src/components/sections/About.tsx`** (1 edit, line 83)
+- Change: `'Los Safety Innovation Awards es la manera'` -> `'Los Safety Innovation Awards son la manera'`
+- Just replacing "es" with "son"
 
-**2. `src/components/sections/Eligibility.tsx`** (2 edits)
-- Line 30 (Equipes): "...desarrollaron soluciones creativas para desafios reales." -> "...desarrollaron soluciones creativas para resolver desafios reales."
-- Line 36 (Profissionais): "...lideran iniciativas transformadoras en sus organizaciones." -> "...lideran iniciativas de transformacion dentro de sus organizaciones."
+**2. `src/components/sections/Manifesto.tsx`** (2 edits)
+- Lines 53-54 (title): Currently split as `t('Por que este prêmio', 'Por qué este premio')` + `t('existe', 'existe')`. Will change to `t('Por que este prêmio', '¿Por qué MSA creó los')` and `t('existe', 'Safety Innovation Awards?')` to preserve the gold-highlighted span structure. The gold span will highlight "Safety Innovation Awards?" in ES and "existe" in PT.
+- Lines 58-61 (subtitle): Change ES string from `'Creemos que reconocer la excelencia en seguridad inspira a toda una industria a evolucionar.'` to `'En MSA creemos que reconocer la excelencia en seguridad inspira a las industrias a evolucionar.'`
 
-**3. `src/components/sections/Prerequisites.tsx`** (12 edits)
-- Line 73: "Prerrequisitos del" -> "Requisitos del"
-- Lines 79-81: subtitle -> two-sentence version about "cumplir con todos los puntos solicitados" + incomplete projects note
-- Remove the bottom disclaimer paragraph (line 134) in ES by making it empty, with conditional render
-- Cards 1-5: update "Item" label to just number ("1.", "2.", etc.), update titles and descriptions per spec
-
-**4. `src/components/sections/EvaluationCriteria.tsx`** (2 edits)
-- Line 40: "Impacto Cultural" -> "Cultura de Compromiso"
-- Line 60: "Diferencial Tecnologico" -> "Implementacion Tecnologica"
-
-**5. `src/components/sections/Process.tsx`** (4 edits)
-- Line 27 (Cierre): description -> empty string in ES; add conditional render so empty description is not rendered
-- Line 33: title "1a fase - Evaluacion del Comite" -> "Evaluaciones"
-- Line 36: description -> "Analisis detallado de cada proyecto a cargo del comite de especialistas."
-- Line 41: date badge "2a Fase: 28/03 hasta 24/04" -> "28/03 hasta 24/04"
-- Line 42: title -> "Presentacion de los Finalistas"
-
-**6. `src/components/sections/Committee.tsx`** (1 edit)
-- Line 124: "Garantia de diversidad y criterios objetivos." -> "Diversidad y criterios objetivos."
-
-**7. `src/components/sections/Awards.tsx`** (2 edits)
-- Line 51: "Divulgacion en MSA Safety Summit 2026" -> "Presentacion en MSA Safety Summit 2026"
-- Line 58: "Reconocimiento oficial de la industria" -> "Reconocimiento de la industria a nivel Latinoamerica"
-
-**8. `src/components/sections/Dates.tsx`** (3 edits)
-- Line 39: "Plazo Final" -> "Fecha limite"
-- Line 49: "Ultimo dia para envio" -> "Ultimo dia de recepcion de proyectos"
-- Line 56: long phrase -> "No dejes pasar la oportunidad de posicionar tu iniciativa y mostrar los resultados de tu proyecto a todo Latinoamerica."
-
-**9. `src/components/sections/Submit.tsx`** (3 edits + conditional render)
-- Line 31: "Listo para enviar su" -> "¿Listo para enviar tu"
-- Line 37: subtitle -> "Comparte tu innovacion en seguridad y deja que el impacto de tu trabajo se convierta en un referente en toda la region."
-- Line 66: form time estimate -> empty string in ES; wrap in conditional render so nothing shows when empty
+**3. `src/components/sections/Eligibility.tsx`** (2 edits)
+- Line 48: Change ES from `'Quién puede'` to `'¿Quién puede'` and line 49: from `'participar'` to `'participar?'`
+- Lines 53-56 (subtitle): Change ES string from `'La participación es libre para todos los perfiles. Cada empresa puede tener máximo 1 proyecto finalista.'` to `'La convocatoria esta abierta para todos los perfiles y solo podrá haber un proyecto finalista por empresa.'`
 
 ### What does NOT change
-- All Portuguese (PT) strings
-- Layout, CSS, icons, order, component structure
-- Backend, edge functions, forms, admin, RLS, storage
-
+- All Portuguese (PT) strings remain identical
+- Layout, CSS, icons, order, component structure unchanged
+- Backend, edge functions, forms, admin, RLS, storage untouched
