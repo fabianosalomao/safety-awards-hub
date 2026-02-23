@@ -56,7 +56,7 @@ const Awards = () => {
               </div>
               <ul className="space-y-3">
                 {[
-                  t('Homenagem ao vivo para o público', 'Homenaje en vivo para el público'),
+                  t('Homenagem ao vivo para o público', 'Presentación en el MSA Safety Summit 2026'),
                   t('Reconhecimento oficial da indústria', 'Reconocimiento de la industria a nivel Latinoamérica'),
                   t('Networking com líderes de segurança', 'Networking con líderes de seguridad'),
                 ].map((item, i) => (
