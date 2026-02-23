@@ -80,7 +80,7 @@ const About = () => {
             <p className="text-lg text-muted-foreground leading-relaxed">
               {t(
                 'O Safety Innovation Awards é a premiação que reconhece e celebra projetos que estão transformando a segurança no trabalho na América Latina.',
-                'Los Safety Innovation Awards es la manera en la que reconocemos y celebramos los proyectos que están transformando la seguridad laboral en Latinoamérica.'
+                'Los Safety Innovation Awards son la manera en la que reconocemos y celebramos los proyectos que están transformando la seguridad laboral en Latinoamérica.'
               )}
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
