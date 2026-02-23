@@ -49,8 +49,8 @@ const Submit = () => {
                 onClick={() => setFormOpen(true)}
               >
                 <span className="flex items-center gap-3">
-                  {t('Submeter Projeto', 'Enviar Proyecto')}
                   <Send className="w-5 h-5" />
+                  {t('Submeter Projeto', 'Enviar Proyecto')}
                 </span>
               </Button>
             </motion.div>
