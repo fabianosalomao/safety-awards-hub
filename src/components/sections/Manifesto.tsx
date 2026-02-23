@@ -14,7 +14,7 @@ const Manifesto = () => {
       phrase: t('Pessoas no centro', 'Personas en el centro'),
       description: t(
         'Cada inovação que premiamos coloca a vida humana como prioridade absoluta.',
-        'Cada innovación que premiamos pone la vida humana como prioridad absoluta.'
+        'Cada solución que reconocemos nace con una prioridad clara: proteger vidas.'
       ),
     },
     {
@@ -22,7 +22,7 @@ const Manifesto = () => {
       phrase: t('Segurança como valor estratégico', 'Seguridad como valor estratégico'),
       description: t(
         'Empresas líderes entendem que segurança é investimento, não custo.',
-        'Las empresas líderes entienden que la seguridad es inversión, no costo.'
+        'Las empresas líderes saben que cuidar a su equipo es una inversión, no un costo operativo.'
       ),
     },
     {
@@ -30,7 +30,7 @@ const Manifesto = () => {
       phrase: t('Inovações que salvam vidas', 'Innovaciones que salvan vidas'),
       description: t(
         'Soluções criativas e tecnológicas que fazem a diferença no dia a dia.',
-        'Soluciones creativas y tecnológicas que hacen la diferencia en el día a día.'
+        'Soluciones creativas y tecnológicas que marcan la diferencia en el día a día.'
       ),
     },
   ];

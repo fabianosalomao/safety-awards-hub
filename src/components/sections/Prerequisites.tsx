@@ -11,10 +11,10 @@ const Prerequisites = () => {
   const requirements = [
     {
       icon: FileText,
-      title: t('Cenário Passado', 'Escenario Pasado'),
+      title: t('Cenário Passado', 'Contexto y Desafíos'),
       description: t(
         'Descreva o contexto e os desafios de segurança que motivaram o projeto.',
-        'Describa el contexto y los desafíos de seguridad que motivaron el proyecto.'
+        'Descripción del contexto y los desafíos de seguridad que motivaron el proyecto.'
       ),
     },
     {
@@ -22,31 +22,31 @@ const Prerequisites = () => {
       title: t('Solução Implementada', 'Solución Implementada'),
       description: t(
         'Detalhe a inovação ou melhoria que foi desenvolvida e aplicada.',
-        'Detalle la innovación o mejora que fue desarrollada y aplicada.'
+        'Información completa de la innovación o mejora que fue desarrollada y aplicada.'
       ),
     },
     {
       icon: BarChart3,
-      title: t('Resultados Obtidos', 'Resultados Obtenidos'),
+      title: t('Resultados Obtidos', 'Resultados e Impacto'),
       description: t(
         'Apresente métricas, dados e evidências do impacto gerado.',
-        'Presente métricas, datos y evidencias del impacto generado.'
+        'Métricas, datos y evidencias que demuestren el impacto generado por la iniciativa.'
       ),
     },
     {
       icon: BookOpen,
-      title: t('Principal Aprendizado', 'Principal Aprendizaje'),
+      title: t('Principal Aprendizado', 'Lecciones Aprendidas'),
       description: t(
         'Compartilhe os insights e lições aprendidas durante o projeto.',
-        'Comparta los insights y lecciones aprendidas durante el proyecto.'
+        'Insights clave y aprendizajes obtenidos durante el desarrollo y ejecución del proyecto.'
       ),
     },
     {
       icon: RefreshCw,
-      title: t('O que faria diferente', 'Qué haría diferente'),
+      title: t('O que faria diferente', 'Oportunidades de Mejora'),
       description: t(
         'Reflexão sobre oportunidades de melhoria identificadas.',
-        'Reflexión sobre oportunidades de mejora identificadas.'
+        'Reflexión sobre qué se podría haber hecho de forma distinta y los próximos pasos identificados.'
       ),
     },
   ];
@@ -70,14 +70,14 @@ const Prerequisites = () => {
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Pré-requisitos do', 'Prerrequisitos del')}{' '}
+            {t('Pré-requisitos do', 'Requisitos del')}{' '}
             <span className="text-gradient-gold">{t('projeto', 'proyecto')}</span>
           </h2>
           <div className="section-divider mt-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">
             {t(
               'Seu projeto precisa abordar todos estes pontos para ser considerado.',
-              'Su proyecto necesita abordar todos estos puntos para ser considerado.'
+              'Para ser considerada, la iniciativa debe cumplir con todos los puntos solicitados. No se tomarán en cuenta proyectos incompletos o que no presenten resultados medibles.'
             )}
           </p>
         </motion.div>
@@ -108,7 +108,7 @@ const Prerequisites = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-xs font-bold text-accent/80 uppercase tracking-wider">
-                      {t('Item', 'Ítem')} {index + 1}
+                      {t('Item', '')} {index + 1}{t('', '.')}
                     </span>
                   </div>
                   <h3 className="text-lg font-bold mb-2">{req.title}</h3>
@@ -128,12 +128,17 @@ const Prerequisites = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-12 text-center"
         >
-          <p className="text-muted-foreground">
-            {t(
-              'Projetos incompletos ou sem resultados mensuráveis não serão avaliados.',
-              'Proyectos incompletos o sin resultados medibles no serán evaluados.'
-            )}
-          </p>
+          {t(
+            'Projetos incompletos ou sem resultados mensuráveis não serão avaliados.',
+            ''
+          ) && (
+            <p className="text-muted-foreground">
+              {t(
+                'Projetos incompletos ou sem resultados mensuráveis não serão avaliados.',
+                ''
+              )}
+            </p>
+          )}
         </motion.div>
       </div>
     </section>
