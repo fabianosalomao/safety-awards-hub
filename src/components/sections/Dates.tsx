@@ -18,8 +18,8 @@ const Dates = () => {
           className="text-center mb-12"
         >
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Prazo final para', 'Plazo final para')}{' '}
-            <span className="text-gradient-gold">{t('submissão do projeto', 'envío del proyecto')}</span>
+            {t('Prazo final para', 'Cierre de')}{' '}
+            <span className="text-gradient-gold">{t('submissão do projeto', 'convocatoria')}</span>
           </h2>
           <div className="section-divider mt-6" />
         </motion.div>

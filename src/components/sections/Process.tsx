@@ -66,8 +66,8 @@ const Process = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Cronograma do', 'Cronograma del')}{' '}
-            <span className="text-gradient-gold">{t('Prêmio', 'Premio')}</span>
+            {t('Cronograma do', 'Cronograma de la')}{' '}
+            <span className="text-gradient-gold">{t('Prêmio', 'convocatoria')}</span>
           </h2>
           <div className="section-divider mt-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">

@@ -105,7 +105,7 @@ const Hero = () => {
             asChild
           >
             <a href="#about">
-              {t('Saiba Mais', 'Conocer Más')}
+              {t('Saiba Mais', 'Conoce Más')}
             </a>
           </Button>
         </div>
