@@ -32,7 +32,7 @@ const About = () => {
       title: t('Reconhecimento', 'Reconocimiento'),
       description: t(
         'Premiamos inovações implementadas que demonstraram resultados tangíveis em segurança.',
-        'Premiamos innovaciones implementadas que demostraron resultados tangibles en seguridad.'
+        'Premiamos soluciones implementadas que han mostrado resultados tangibles en seguridad.'
       ),
     },
     {
@@ -40,7 +40,7 @@ const About = () => {
       title: t('Alcance Latino-Americano', 'Alcance Latinoamericano'),
       description: t(
         'Conectamos inovações de segurança do trabalho da América Latina em uma comunidade de excelência.',
-        'Conectamos innovaciones de seguridad laboral de América Latina en una comunidad de excelencia.'
+        'Los mejores proyectos de seguridad laboral de la región conectando con nuestra comunidad.'
       ),
     },
     {
@@ -48,7 +48,7 @@ const About = () => {
       title: t('Integrado ao MSA Safety Summit 2026', 'Integrado al MSA Safety Summit 2026'),
       description: t(
         'Os finalistas serão homenageados durante o maior summit de segurança do trabalho da América Latina.',
-        'Los finalistas serán homenajeados durante el mayor summit de seguridad laboral de América Latina.'
+        'Los finalistas serán reconocidos durante el evento de seguridad más importante de Latinoamérica.'
       ),
     },
   ];
@@ -79,13 +79,13 @@ const About = () => {
             <p className="text-lg text-muted-foreground leading-relaxed">
               {t(
                 'O Safety Innovation Awards é a premiação que reconhece e celebra projetos que estão transformando a segurança no trabalho na América Latina.',
-                'El Safety Innovation Awards es el premio que reconoce y celebra proyectos que están transformando la seguridad laboral en América Latina.'
+                'Los Safety Innovation Awards es la manera en la que reconocemos y celebramos los proyectos que están transformando la seguridad laboral en Latinoamérica.'
               )}
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               {t(
                 'Mais do que um prêmio, é um movimento para destacar profissionais e empresas que colocam a vida das pessoas em primeiro lugar, usando tecnologia e inovação como ferramentas de proteção.',
-                'Más que un premio, es un movimiento para destacar profesionales y empresas que ponen la vida de las personas en primer lugar, usando tecnología e innovación como herramientas de protección.'
+                'Más que un premio, es la manera en la que reconocemos a las empresas y profesionales que priorizan la seguridad, usando la tecnología y la innovación para proteger a las personas.'
               )}
             </p>
             <p className="text-xl md:text-2xl font-semibold text-foreground">
