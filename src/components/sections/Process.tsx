@@ -24,7 +24,7 @@ const Process = () => {
       title: t('Encerramento das Inscrições', 'Cierre de las Inscripciones'),
       description: t(
         'Prazo final para submissão de projetos.',
-        ''
+        'Fecha límite para el envío de los proyectos.'
       ),
     },
     {
