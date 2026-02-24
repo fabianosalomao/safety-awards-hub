@@ -104,7 +104,9 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
       return;
     }
 
-    setFiles(prev => [...prev, ...validFiles]);
+    const newFiles = [...files, ...validFiles];
+    setFiles(newFiles);
+    if (newFiles.length > 0) setFileError(false);
   };
 
   const removeFile = (index: number) => {
@@ -139,15 +141,18 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
     return uploadedUrls;
   };
 
+  const [fileError, setFileError] = useState(false);
+
   const onSubmit = async (data: SubmissionFormData) => {
+    if (files.length === 0) {
+      setFileError(true);
+      return;
+    }
+    setFileError(false);
     setIsSubmitting(true);
     
     try {
-      let fileUrls: string[] = [];
-      
-      if (files.length > 0) {
-        fileUrls = await uploadFiles();
-      }
+      const fileUrls = await uploadFiles();
 
       const response = await supabase.functions.invoke('create-submission', {
         body: {
@@ -488,7 +493,7 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
               {/* File Upload Section */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-accent">
-                  {t('Arquivos de Apoio', 'Archivos de Apoyo')}
+                  {t('Arquivos de Apoio', 'Archivos de Apoyo')} *
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   {t(
@@ -517,6 +522,12 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                     </span>
                   </label>
                 </div>
+
+                {fileError && files.length === 0 && (
+                  <p className="text-sm text-destructive">
+                    {t('É necessário enviar pelo menos um arquivo de apoio.', 'Es necesario enviar al menos un archivo de apoyo.')}
+                  </p>
+                )}
 
                 {files.length > 0 && (
                   <div className="space-y-2">
