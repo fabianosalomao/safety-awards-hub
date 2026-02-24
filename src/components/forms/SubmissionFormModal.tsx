@@ -163,6 +163,10 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
           country_iso2: data.country_iso2,
           country_dial_code: data.country_dial_code,
           incentivador: data.incentivador || null,
+          name_2: data.name_2 || null,
+          job_title_2: data.job_title_2 || null,
+          name_3: data.name_3 || null,
+          job_title_3: data.job_title_3 || null,
           project_title: data.project_title,
           current_scenario: data.current_scenario,
           solution_applied: data.solution_applied,
@@ -268,7 +272,7 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">{t('Nome completo', 'Nombre completo')} *</Label>
+                    <Label htmlFor="name">{t('Nome completo 1', 'Nombre completo 1')} *</Label>
                     <Input
                       id="name"
                       {...register('name')}
@@ -280,7 +284,7 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="job_title">{t('Cargo', 'Cargo')} *</Label>
+                    <Label htmlFor="job_title">{t('Cargo 1', 'Cargo 1')} *</Label>
                     <Input
                       id="job_title"
                       {...register('job_title')}
@@ -289,6 +293,44 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                     {errors.job_title && (
                       <p className="text-sm text-destructive">{errors.job_title.message}</p>
                     )}
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name_2">{t('Nome completo 2', 'Nombre completo 2')}</Label>
+                    <Input
+                      id="name_2"
+                      {...register('name_2')}
+                      placeholder={t('Opcional', 'Opcional')}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="job_title_2">{t('Cargo 2', 'Cargo 2')}</Label>
+                    <Input
+                      id="job_title_2"
+                      {...register('job_title_2')}
+                      placeholder={t('Opcional', 'Opcional')}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name_3">{t('Nome completo 3', 'Nombre completo 3')}</Label>
+                    <Input
+                      id="name_3"
+                      {...register('name_3')}
+                      placeholder={t('Opcional', 'Opcional')}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="job_title_3">{t('Cargo 3', 'Cargo 3')}</Label>
+                    <Input
+                      id="job_title_3"
+                      {...register('job_title_3')}
+                      placeholder={t('Opcional', 'Opcional')}
+                    />
                   </div>
                 </div>
 

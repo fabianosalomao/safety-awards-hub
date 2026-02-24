@@ -44,8 +44,12 @@ export type Database = {
           id: string
           incentivador: string | null
           job_title: string
+          job_title_2: string | null
+          job_title_3: string | null
           main_learning: string
           name: string
+          name_2: string | null
+          name_3: string | null
           phone: string | null
           project_title: string
           results_obtained: string
@@ -65,8 +69,12 @@ export type Database = {
           id?: string
           incentivador?: string | null
           job_title: string
+          job_title_2?: string | null
+          job_title_3?: string | null
           main_learning: string
           name: string
+          name_2?: string | null
+          name_3?: string | null
           phone?: string | null
           project_title: string
           results_obtained: string
@@ -86,8 +94,12 @@ export type Database = {
           id?: string
           incentivador?: string | null
           job_title?: string
+          job_title_2?: string | null
+          job_title_3?: string | null
           main_learning?: string
           name?: string
+          name_2?: string | null
+          name_3?: string | null
           phone?: string | null
           project_title?: string
           results_obtained?: string

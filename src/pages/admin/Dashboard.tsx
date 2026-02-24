@@ -51,6 +51,13 @@ interface Submission {
   company: string;
   email: string;
   phone: string | null;
+  country_iso2: string | null;
+  country_dial_code: string | null;
+  incentivador: string | null;
+  name_2: string | null;
+  job_title_2: string | null;
+  name_3: string | null;
+  job_title_3: string | null;
   project_title: string;
   current_scenario: string;
   solution_applied: string;
@@ -395,7 +402,64 @@ const AdminDashboard = () => {
                       <p className="font-medium">{selectedSubmission.phone}</p>
                     </div>
                   )}
+                  {selectedSubmission.country_iso2 && (
+                    <div>
+                      <p className="text-muted-foreground">País</p>
+                      <p className="font-medium">
+                        {selectedSubmission.country_iso2}
+                        {selectedSubmission.country_dial_code && ` (${selectedSubmission.country_dial_code})`}
+                      </p>
+                    </div>
+                  )}
+                  {selectedSubmission.incentivador && (
+                    <div>
+                      <p className="text-muted-foreground">Incentivador</p>
+                      <p className="font-medium">{selectedSubmission.incentivador}</p>
+                    </div>
+                  )}
                 </div>
+
+                {/* Participante 2 */}
+                {(selectedSubmission.name_2 || selectedSubmission.job_title_2) && (
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-xs font-semibold text-muted-foreground mb-2">Participante 2</p>
+                    <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                      {selectedSubmission.name_2 && (
+                        <div>
+                          <p className="text-muted-foreground">Nome</p>
+                          <p className="font-medium">{selectedSubmission.name_2}</p>
+                        </div>
+                      )}
+                      {selectedSubmission.job_title_2 && (
+                        <div>
+                          <p className="text-muted-foreground">Cargo</p>
+                          <p className="font-medium">{selectedSubmission.job_title_2}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Participante 3 */}
+                {(selectedSubmission.name_3 || selectedSubmission.job_title_3) && (
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-xs font-semibold text-muted-foreground mb-2">Participante 3</p>
+                    <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                      {selectedSubmission.name_3 && (
+                        <div>
+                          <p className="text-muted-foreground">Nome</p>
+                          <p className="font-medium">{selectedSubmission.name_3}</p>
+                        </div>
+                      )}
+                      {selectedSubmission.job_title_3 && (
+                        <div>
+                          <p className="text-muted-foreground">Cargo</p>
+                          <p className="font-medium">{selectedSubmission.job_title_3}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Project Data */}
