@@ -17,6 +17,10 @@ export const submissionSchema = z.object({
   results_obtained: z.string().trim().min(1, 'Resultados obtidos são obrigatórios').max(2000, 'Resultados obtidos devem ter no máximo 2000 caracteres'),
   main_learning: z.string().trim().min(1, 'Principal aprendizado é obrigatório').max(1000, 'Principal aprendizado deve ter no máximo 1000 caracteres'),
   what_would_change: z.string().trim().max(1000, 'Este campo deve ter no máximo 1000 caracteres').optional().or(z.literal('')),
+  name_2: z.string().trim().max(120, 'Nome deve ter no máximo 120 caracteres').optional().or(z.literal('')),
+  job_title_2: z.string().trim().max(120, 'Cargo deve ter no máximo 120 caracteres').optional().or(z.literal('')),
+  name_3: z.string().trim().max(120, 'Nome deve ter no máximo 120 caracteres').optional().or(z.literal('')),
+  job_title_3: z.string().trim().max(120, 'Cargo deve ter no máximo 120 caracteres').optional().or(z.literal('')),
 });
 
 export type SubmissionFormData = z.infer<typeof submissionSchema>;
