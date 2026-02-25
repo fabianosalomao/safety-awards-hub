@@ -91,8 +91,8 @@ const Awards = () => {
                   <Plane className="w-6 h-6 text-accent" />
                   <span className="font-semibold">
                     {t(
-                      'Visita às instalações corporativas da MSA Safety e acesso ao NSC Safety Congress & Expo.',
-                      'Visita a las instalaciones de MSA Safety Corporativo y acceso al NSC Safety Congress & Expo.'
+                      'Uma experiência de imersão global na MSA Safety e acesso a um Summit de Inovação Internacional.',
+                      'Una experiencia de inmersión global en MSA Safety y acceso a un Summit Internacional de Innovación.'
                     )}
                   </span>
                 </div>
