@@ -11,7 +11,7 @@ const Process = () => {
   const timeline = [
     {
       icon: Calendar,
-      date: '23/01/2026',
+      date: '23/02/2026',
       title: t('Abertura e Lançamento', 'Apertura y Lanzamiento'),
       description: t(
         'Início das inscrições e submissão de projetos.',
