@@ -17,7 +17,7 @@ const EvaluationCriteria = () => {
     {
       icon: Shield,
       weight: 30,
-      title: t('Impacto na Segurança', 'Impacto en Seguridad'),
+      title: t('Potencial Impacto na Segurança', 'Potencial impacto en la seguridad'),
       description: t(
         'Redução de riscos, incidentes ou acidentes. Melhoria mensurável em indicadores de segurança.',
         'Reducción de riesgos, incidentes o accidentes. Mejora medible en indicadores de seguridad.'
