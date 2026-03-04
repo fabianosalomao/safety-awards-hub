@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -10,6 +11,10 @@ const Header = () => {
   const { language, setLanguage, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isHomePage = location.pathname === '/';
 
   const navLinks = [
     { id: 'hero', labelPT: 'Início', labelES: 'Inicio' },
@@ -30,10 +35,22 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!isHomePage) {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
+    setIsOpen(false);
+  };
+
+  const goToRegulamento = () => {
+    navigate(language === 'pt' ? '/regulamento' : '/reglamento');
     setIsOpen(false);
   };
 
@@ -81,6 +98,16 @@ const Header = () => {
                 {language === 'pt' ? link.labelPT : link.labelES}
               </button>
             ))}
+            <button
+              onClick={goToRegulamento}
+              className={`text-sm font-medium transition-colors ${
+                location.pathname === '/regulamento' || location.pathname === '/reglamento'
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
+              {t('Regulamento', 'Reglamento')}
+            </button>
           </nav>
 
           {/* Desktop Actions */}
@@ -124,6 +151,12 @@ const Header = () => {
                       {language === 'pt' ? link.labelPT : link.labelES}
                     </button>
                   ))}
+                  <button
+                    onClick={goToRegulamento}
+                    className="text-lg font-medium text-foreground hover:text-primary transition-colors text-left"
+                  >
+                    {t('Regulamento', 'Reglamento')}
+                  </button>
                   <Button
                     onClick={() => scrollToSection('submit')}
                     className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
