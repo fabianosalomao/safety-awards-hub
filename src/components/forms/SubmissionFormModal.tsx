@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { X, Upload, FileText, Loader2, CheckCircle } from 'lucide-react';
+import { X, Upload, FileText, Loader2, CheckCircle, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -587,6 +587,38 @@ const SubmissionFormModal = ({ open, onOpenChange }: SubmissionFormModalProps) =
                       </div>
                     ))}
                   </div>
+                )}
+              </div>
+
+              {/* Terms Checkbox */}
+              <div className="space-y-2">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    {...register('termsAccepted')}
+                    className="mt-1 h-4 w-4 rounded border-border accent-primary"
+                  />
+                  <span className="text-sm text-muted-foreground">
+                    {t('Li e aceito o ', 'He leído y acepto el ')}
+                    <a
+                      href={t('/regulamento', '/reglamento')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary underline hover:text-primary/80"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {t('Regulamento', 'Reglamento')}
+                    </a>
+                    {' *'}
+                  </span>
+                </label>
+                {errors.termsAccepted && (
+                  <p className="text-sm text-destructive">
+                    {t(
+                      'Você precisa aceitar o regulamento para enviar.',
+                      'Debes aceptar el reglamento para enviar.'
+                    )}
+                  </p>
                 )}
               </div>
 
