@@ -21,6 +21,9 @@ export const submissionSchema = z.object({
   job_title_2: z.string().trim().max(120, 'Cargo deve ter no máximo 120 caracteres').optional().or(z.literal('')),
   name_3: z.string().trim().max(120, 'Nome deve ter no máximo 120 caracteres').optional().or(z.literal('')),
   job_title_3: z.string().trim().max(120, 'Cargo deve ter no máximo 120 caracteres').optional().or(z.literal('')),
+  termsAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'Você precisa aceitar o regulamento para enviar.' }),
+  }),
 });
 
 export type SubmissionFormData = z.infer<typeof submissionSchema>;
