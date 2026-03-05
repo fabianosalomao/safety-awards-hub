@@ -40,7 +40,7 @@ const VideoSection = () => {
           <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
             {t(
               'Em poucos minutos, veja como funciona o programa, critérios e como submeter seu case.',
-              'En pocos minutos, conoce cómo funciona el programa, los criterios y cómo postular tu caso.'
+              'Mira el video y conoce en pocos minutos los criterios de evaluación, los beneficios y el paso a paso para postular tu proyecto con éxito.'
             )}
           </p>
 
@@ -62,7 +62,7 @@ const VideoSection = () => {
           >
             <span className="flex items-center gap-3">
               <Send className="w-5 h-5" />
-              {t('Submeter Projeto', 'Postular Proyecto')}
+              {t('Submeter Projeto', 'Enviar Proyecto')}
             </span>
           </Button>
         </div>
