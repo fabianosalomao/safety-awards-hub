@@ -34,7 +34,7 @@ const VideoSection = () => {
           }}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('Assista e entenda o', 'Mira y entiende el')}{' '}
+            {t('Assista e entenda o', 'Todo lo que necesitas saber sobre los')}{' '}
             <span className="text-gradient-gold">Safety Innovation Awards</span>
           </h2>
           <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
