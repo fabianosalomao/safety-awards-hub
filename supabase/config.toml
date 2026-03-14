@@ -8,3 +8,9 @@ verify_jwt = false
 
 [functions.detect-country]
 verify_jwt = false
+
+[functions.list-submissions-export]
+verify_jwt = false
+
+[functions.sign-submission-files]
+verify_jwt = false

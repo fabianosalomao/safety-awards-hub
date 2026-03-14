@@ -40,6 +40,7 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import logoDark from '@/assets/logo-dark-bg.png';
+import AdminExports from '@/components/admin/AdminExports';
 
 type SubmissionStatus = 'pending' | 'under_review' | 'approved' | 'rejected';
 
@@ -335,6 +336,9 @@ const AdminDashboard = () => {
               </Table>
             </div>
           )}
+
+          {/* Exports section */}
+          <AdminExports />
         </motion.div>
       </main>
 
