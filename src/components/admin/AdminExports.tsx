@@ -234,29 +234,27 @@ async function fetchAllSubmissions(
   onProgress: (loaded: number, total: number) => void
 ): Promise<Submission[]> {
   const all: Submission[] = [];
-  let page = 1;
   const pageSize = 200;
+  let from = 0;
+  let hasMore = true;
 
-  // First call to get total
-  const { data: firstData } = await supabase.functions.invoke('list-submissions-export', {
-    body: { page: 1, pageSize },
-  });
+  // Use the same supabase.from('submissions') query that the admin listing uses
+  while (hasMore) {
+    const { data, error, count } = await supabase
+      .from('submissions')
+      .select('*', { count: from === 0 ? 'exact' : undefined })
+      .order('created_at', { ascending: true })
+      .range(from, from + pageSize - 1);
 
-  if (!firstData || firstData.error) throw new Error(firstData?.error || 'Erro ao buscar submissões');
+    if (error) throw new Error(error.message || 'Erro ao buscar submissões');
+    if (!data || data.length === 0) break;
 
-  all.push(...firstData.rows);
-  const total = firstData.total;
-  onProgress(all.length, total);
-
-  let nextPage = firstData.nextPage;
-  while (nextPage) {
-    const { data } = await supabase.functions.invoke('list-submissions-export', {
-      body: { page: nextPage, pageSize },
-    });
-    if (!data || data.error) throw new Error(data?.error || 'Erro ao buscar submissões');
-    all.push(...data.rows);
+    all.push(...(data as Submission[]));
+    const total = count ?? all.length;
     onProgress(all.length, total);
-    nextPage = data.nextPage;
+
+    hasMore = data.length === pageSize;
+    from += pageSize;
   }
 
   return all;
