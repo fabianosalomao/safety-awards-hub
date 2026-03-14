@@ -336,6 +336,9 @@ const AdminDashboard = () => {
               </Table>
             </div>
           )}
+
+          {/* Exports section */}
+          <AdminExports />
         </motion.div>
       </main>
 
