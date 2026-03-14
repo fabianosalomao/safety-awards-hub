@@ -571,7 +571,7 @@ export default function AdminExports() {
           <DialogContent className="bg-card">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-yellow-500" />
+                <AlertTriangle className="w-5 h-5 text-destructive" />
                 Confirmar exportação
               </DialogTitle>
               <DialogDescription>
