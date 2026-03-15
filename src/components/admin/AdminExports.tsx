@@ -520,9 +520,16 @@ export default function AdminExports() {
     const allSummaries = subs.map((s, i) => submissionToSummaryObj(s, i));
     root.file('all-submissions.json', JSON.stringify(allSummaries, null, 2));
 
-    // Collect all files
+    // Collect all files with safe parsing
     const allFiles: { path: string; folderPath: string }[] = [];
-    subs.forEach((sub, i) => {
+    for (let i = 0; i < subs.length; i++) {
+      const sub = subs[i];
+      let fileUrls = sub.file_urls;
+      if (typeof fileUrls === 'string') {
+        try { fileUrls = JSON.parse(fileUrls); } catch { fileUrls = []; }
+      }
+      if (!Array.isArray(fileUrls)) fileUrls = [];
+
       const folderName = `${padIndex(i + 1)}_${sanitizeFilename(sub.project_title)}`;
       const folder = root.folder(folderName)!;
       const summaryObj = submissionToSummaryObj(sub, i);
@@ -531,10 +538,12 @@ export default function AdminExports() {
       folder.file('submission-summary.txt', summaryToTxt(summaryObj));
       folder.file('submission-summary.md', summaryToMd(summaryObj));
 
-      (sub.file_urls || []).forEach((fp) => {
-        allFiles.push({ path: fp, folderPath: `${folderName}/${extractFilename(fp)}` });
-      });
-    });
+      for (const fp of fileUrls) {
+        if (typeof fp === 'string' && fp.trim()) {
+          allFiles.push({ path: fp, folderPath: `${folderName}/${extractFilename(fp)}` });
+        }
+      }
+    }
 
     if (allFiles.length > 0) {
       setProgressLabel('Gerando URLs de download...');
