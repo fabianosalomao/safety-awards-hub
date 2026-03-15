@@ -262,16 +262,22 @@ async function fetchAllSubmissions(
 
 async function signFilesBatch(filePaths: string[]): Promise<Record<string, string | null>> {
   const results: Record<string, string | null> = {};
-  // Split into batches of 50
   for (let i = 0; i < filePaths.length; i += 50) {
     const batch = filePaths.slice(i, i + 50);
-    const { data } = await supabase.functions.invoke('sign-submission-files', {
+    const { data, error } = await supabase.functions.invoke('sign-submission-files', {
       body: { filePaths: batch },
     });
+    if (error) {
+      console.error(`[signFilesBatch] Erro no lote ${i / 50 + 1}:`, error);
+      continue;
+    }
     if (data?.signedUrls) {
       Object.assign(results, data.signedUrls);
+    } else {
+      console.warn(`[signFilesBatch] Lote ${i / 50 + 1} retornou sem signedUrls:`, data);
     }
   }
+  console.log(`[signFilesBatch] URLs obtidas: ${Object.values(results).filter(Boolean).length}/${filePaths.length}`);
   return results;
 }
 
