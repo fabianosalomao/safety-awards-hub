@@ -408,46 +408,94 @@ export default function AdminExports() {
       setProgressLabel(`Buscando submissões... ${loaded}/${total}`);
     });
 
+    console.log(`[ZIP Anexos] Total submissões: ${subs.length}`);
+
     const JSZip = (await import('jszip')).default;
     const zip = new JSZip();
     const root = zip.folder('SafetyInnovationAwards_Submissions')!;
 
-    // Collect all files
-    const allFiles: { path: string; folderPath: string }[] = [];
-    subs.forEach((sub, i) => {
+    // Collect all files with safe file_urls parsing
+    const allFiles: { path: string; folderPath: string; submissionId: string }[] = [];
+    const manifestSubmissions: any[] = [];
+
+    for (let i = 0; i < subs.length; i++) {
+      const sub = subs[i];
+      let fileUrls = sub.file_urls;
+      if (typeof fileUrls === 'string') {
+        try { fileUrls = JSON.parse(fileUrls); } catch { fileUrls = []; }
+      }
+      if (!Array.isArray(fileUrls)) fileUrls = [];
+
       const folderName = `${padIndex(i + 1)}_${sanitizeFilename(sub.project_title)}`;
-      (sub.file_urls || []).forEach((fp) => {
-        allFiles.push({ path: fp, folderPath: `${folderName}/${extractFilename(fp)}` });
-      });
-    });
+      console.log(`[ZIP Anexos] Sub ${i + 1} (${sub.id}): ${fileUrls.length} arquivo(s)`);
+
+      const subManifest = { submissionId: sub.id, folderName, files: fileUrls.map(extractFilename) };
+      manifestSubmissions.push(subManifest);
+
+      for (const fp of fileUrls) {
+        if (typeof fp === 'string' && fp.trim()) {
+          allFiles.push({ path: fp, folderPath: `${folderName}/${extractFilename(fp)}`, submissionId: sub.id });
+        }
+      }
+    }
+
+    console.log(`[ZIP Anexos] Total anexos encontrados: ${allFiles.length}`);
 
     if (allFiles.length === 0) {
-      // No files, just create empty zip
-      downloadBlob(await zip.generateAsync({ type: 'blob' }), 'SIA_Anexos.zip');
+      toast({ title: 'Nenhum anexo encontrado', description: 'As submissões não possuem arquivos anexos.', variant: 'destructive' });
       return;
     }
 
-    setProgressLabel('Gerando URLs de download...');
+    setProgressLabel(`Gerando URLs de download para ${allFiles.length} arquivo(s)...`);
     setProgressValue(35);
     const signedUrls = await signFilesBatch(allFiles.map(f => f.path));
+
+    const signedCount = Object.values(signedUrls).filter(Boolean).length;
+    console.log(`[ZIP Anexos] URLs assinadas obtidas: ${signedCount}/${allFiles.length}`);
+
+    if (signedCount === 0) {
+      toast({ title: 'Erro ao gerar URLs', description: 'Não foi possível obter URLs de download para os anexos. Verifique os logs.', variant: 'destructive' });
+      return;
+    }
 
     const downloadItems = allFiles
       .filter(f => signedUrls[f.path])
       .map(f => ({ ...f, signedUrl: signedUrls[f.path]! }));
 
+    const skippedFiles = allFiles.filter(f => !signedUrls[f.path]);
+    const errors: string[] = skippedFiles.map(f => `${f.submissionId} - ${f.path}: URL assinada não gerada`);
+
     setProgressLabel('Baixando anexos...');
-    const errors = await downloadFilesWithConcurrency(downloadItems, root, (done, total) => {
-      setProgressValue(35 + Math.round((done / total) * 60));
+    const dlErrors = await downloadFilesWithConcurrency(downloadItems, root, (done, total) => {
+      setProgressValue(35 + Math.round((done / total) * 55));
       setProgressLabel(`Baixando anexos... ${done}/${total}`);
     });
+    errors.push(...dlErrors);
+
+    // Add manifest
+    const manifest = {
+      totalSubmissions: subs.length,
+      totalAttachmentsFound: allFiles.length,
+      totalAddedToZip: downloadItems.length - dlErrors.length,
+      totalErrors: errors.length,
+      submissions: manifestSubmissions,
+    };
+    root.file('manifest.json', JSON.stringify(manifest, null, 2));
 
     if (errors.length > 0) {
       root.file('_errors.txt', `Erros de download:\n${errors.join('\n')}`);
+      console.warn(`[ZIP Anexos] ${errors.length} erro(s):`, errors);
     }
 
     setProgressLabel('Compactando ZIP...');
     setProgressValue(95);
     const blob = await zip.generateAsync({ type: 'blob' });
+    console.log(`[ZIP Anexos] ZIP gerado: ${(blob.size / 1024).toFixed(1)} KB`);
+
+    if (errors.length > 0) {
+      toast({ title: 'Exportação com avisos', description: `${downloadItems.length - dlErrors.length} anexos baixados, ${errors.length} falharam. Veja _errors.txt no ZIP.` });
+    }
+
     downloadBlob(blob, 'SIA_Anexos.zip');
   };
 
