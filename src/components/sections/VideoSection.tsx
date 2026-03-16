@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SUBMISSIONS_CLOSED } from '@/config/submissions';
 
 const VideoSection = () => {
   const { t } = useLanguage();
@@ -55,16 +56,30 @@ const VideoSection = () => {
             />
           </div>
 
-          <Button
-            size="lg"
-            className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-7 text-xl font-bold glow-green"
-            onClick={scrollToSubmit}
-          >
-            <span className="flex items-center gap-3">
-              <Send className="w-5 h-5" />
-              {t('Submeter Projeto', 'Enviar Proyecto')}
-            </span>
-          </Button>
+          {SUBMISSIONS_CLOSED ? (
+            <Button
+              size="lg"
+              disabled
+              aria-disabled="true"
+              className="bg-muted text-muted-foreground px-10 py-7 text-xl font-bold cursor-not-allowed opacity-60"
+            >
+              <span className="flex items-center gap-3">
+                <Send className="w-5 h-5" />
+                {t('Inscrições encerradas', 'Inscripciones cerradas')}
+              </span>
+            </Button>
+          ) : (
+            <Button
+              size="lg"
+              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-7 text-xl font-bold glow-green"
+              onClick={scrollToSubmit}
+            >
+              <span className="flex items-center gap-3">
+                <Send className="w-5 h-5" />
+                {t('Submeter Projeto', 'Enviar Proyecto')}
+              </span>
+            </Button>
+          )}
         </div>
       </div>
     </section>

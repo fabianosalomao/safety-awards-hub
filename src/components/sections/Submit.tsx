@@ -4,6 +4,7 @@ import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SubmissionFormModal from '@/components/forms/SubmissionFormModal';
+import { SUBMISSIONS_CLOSED } from '@/config/submissions';
 
 const Submit = () => {
   const { t } = useLanguage();
@@ -28,14 +29,27 @@ const Submit = () => {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              {t('Pronto para submeter seu', '¿Listo para enviar tu')}{' '}
-              <span className="text-gradient-gold">{t('projeto', 'proyecto')}</span>?
+              {SUBMISSIONS_CLOSED
+                ? t('Inscrições encerradas', 'Inscripciones cerradas')
+                : (
+                    <>
+                      {t('Pronto para submeter seu', '¿Listo para enviar tu')}{' '}
+                      <span className="text-gradient-gold">{t('projeto', 'proyecto')}</span>?
+                    </>
+                  )
+              }
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              {t(
-                'Compartilhe sua inovação em segurança e concorra ao reconhecimento que ela merece.',
-                'Comparte tu innovación en seguridad y deja que el impacto de tu trabajo se convierta en un referente en toda la región.'
-              )}
+              {SUBMISSIONS_CLOSED
+                ? t(
+                    'As inscrições foram encerradas. Os projetos recebidos seguem para avaliação.',
+                    'Las inscripciones han sido cerradas. Los proyectos recibidos pasan a la etapa de evaluación.'
+                  )
+                : t(
+                    'Compartilhe sua inovação em segurança e concorra ao reconhecimento que ela merece.',
+                    'Comparte tu innovación en seguridad y deja que el impacto de tu trabajo se convierta en un referente en toda la región.'
+                  )
+              }
             </p>
 
             <motion.div
@@ -43,19 +57,33 @@ const Submit = () => {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <Button
-                size="lg"
-                className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-7 text-xl font-bold glow-green"
-                onClick={() => setFormOpen(true)}
-              >
-                <span className="flex items-center gap-3">
-                  <Send className="w-5 h-5" />
-                  {t('Submeter Projeto', 'Enviar Proyecto')}
-                </span>
-              </Button>
+              {SUBMISSIONS_CLOSED ? (
+                <Button
+                  size="lg"
+                  disabled
+                  aria-disabled="true"
+                  className="bg-muted text-muted-foreground px-10 py-7 text-xl font-bold cursor-not-allowed opacity-60"
+                >
+                  <span className="flex items-center gap-3">
+                    <Send className="w-5 h-5" />
+                    {t('Inscrições encerradas', 'Inscripciones cerradas')}
+                  </span>
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-7 text-xl font-bold glow-green"
+                  onClick={() => setFormOpen(true)}
+                >
+                  <span className="flex items-center gap-3">
+                    <Send className="w-5 h-5" />
+                    {t('Submeter Projeto', 'Enviar Proyecto')}
+                  </span>
+                </Button>
+              )}
             </motion.div>
 
-            {t(
+            {!SUBMISSIONS_CLOSED && t(
                 'O formulário leva aproximadamente 15-20 minutos para ser preenchido.',
                 ''
               ) && (
@@ -75,7 +103,7 @@ const Submit = () => {
         </div>
       </section>
 
-      <SubmissionFormModal open={formOpen} onOpenChange={setFormOpen} />
+      {!SUBMISSIONS_CLOSED && <SubmissionFormModal open={formOpen} onOpenChange={setFormOpen} />}
     </>
   );
 };

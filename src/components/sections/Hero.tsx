@@ -2,6 +2,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useState } from 'react';
+import { SUBMISSIONS_CLOSED } from '@/config/submissions';
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -57,58 +58,110 @@ const Hero = () => {
           />
         </div>
 
-        {/* Title with CSS animation */}
-        <h1
-          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-up"
-          style={{ animationDelay: '150ms' }}
-        >
-          {t(
-            'Reconhecendo inovações que',
-            'Reconociendo innovaciones que'
-          )}
-          <br />
-          <span className="text-gradient-gold">
-            {t('salvam vidas', 'salvan vidas')}
-          </span>
-        </h1>
+        {SUBMISSIONS_CLOSED ? (
+          <>
+            {/* Closed submissions info block */}
+            <div
+              className="max-w-[840px] mx-auto mb-10 rounded-2xl bg-background/70 backdrop-blur-md border border-border/50 px-6 py-8 md:px-12 md:py-10 animate-fade-up"
+              style={{ animationDelay: '150ms' }}
+            >
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground">
+                {t('Inscrições encerradas', 'Inscripciones cerradas')}
+              </h1>
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed">
+                {t(
+                  'As inscrições para o Safety Innovation Awards 2026 foram oficialmente encerradas.\n\nRecebemos projetos de diferentes países da América Latina que agora seguem para a fase de avaliação.',
+                  'Las inscripciones para los Safety Innovation Awards 2026 han sido oficialmente cerradas.\n\nRecibimos proyectos de distintos países de América Latina que ahora pasan a la etapa de evaluación.'
+                ).split('\n\n').map((paragraph, i) => (
+                  <span key={i} className="block mb-2 last:mb-0">{paragraph}</span>
+                ))}
+              </p>
+              <p className="text-sm text-muted-foreground/80 italic">
+                {t(
+                  'Os projetos selecionados serão anunciados durante o Safety Summit 2026.',
+                  'Los proyectos seleccionados se anunciarán durante el Safety Summit 2026.'
+                )}
+              </p>
+            </div>
 
-        {/* Subtitle with CSS animation */}
-        <p
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up"
-          style={{ animationDelay: '300ms' }}
-        >
-          {t(
-            'Tecnologia que protege vidas. Projetos que inspiram o futuro da segurança na América Latina.',
-            'Seguridad que transforma el futuro de Latinoamérica.'
-          )}
-        </p>
+            {/* Disabled CTA + Saiba Mais */}
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-up"
+              style={{ animationDelay: '300ms' }}
+            >
+              <Button
+                size="lg"
+                disabled
+                aria-disabled="true"
+                className="bg-muted text-muted-foreground px-8 py-6 text-lg font-semibold cursor-not-allowed opacity-60"
+              >
+                {t('Inscrições encerradas', 'Inscripciones cerradas')}
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-accent/50 text-accent hover:bg-accent/10 hover:border-accent px-8 py-6 text-lg transition-all hover:scale-105"
+                asChild
+              >
+                <a href="#about">
+                  {t('Saiba Mais', 'Conoce Más')}
+                </a>
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Title with CSS animation */}
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-up"
+              style={{ animationDelay: '150ms' }}
+            >
+              {t('Reconhecendo inovações que', 'Reconociendo innovaciones que')}
+              <br />
+              <span className="text-gradient-gold">
+                {t('salvam vidas', 'salvan vidas')}
+              </span>
+            </h1>
 
-        {/* CTA Buttons with CSS animation */}
-        <div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-up"
-          style={{ animationDelay: '450ms' }}
-        >
-          <Button
-            size="lg"
-            className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold glow-green transition-transform hover:scale-105"
-            asChild
-          >
-            <a href="#submit" className="flex items-center gap-2">
-              {t('Submeter Projeto', 'Enviar Proyecto')}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-accent/50 text-accent hover:bg-accent/10 hover:border-accent px-8 py-6 text-lg transition-all hover:scale-105"
-            asChild
-          >
-            <a href="#about">
-              {t('Saiba Mais', 'Conoce Más')}
-            </a>
-          </Button>
-        </div>
+            {/* Subtitle with CSS animation */}
+            <p
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up"
+              style={{ animationDelay: '300ms' }}
+            >
+              {t(
+                'Tecnologia que protege vidas. Projetos que inspiram o futuro da segurança na América Latina.',
+                'Seguridad que transforma el futuro de Latinoamérica.'
+              )}
+            </p>
+
+            {/* CTA Buttons with CSS animation */}
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-up"
+              style={{ animationDelay: '450ms' }}
+            >
+              <Button
+                size="lg"
+                className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold glow-green transition-transform hover:scale-105"
+                asChild
+              >
+                <a href="#submit" className="flex items-center gap-2">
+                  {t('Submeter Projeto', 'Enviar Proyecto')}
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-accent/50 text-accent hover:bg-accent/10 hover:border-accent px-8 py-6 text-lg transition-all hover:scale-105"
+                asChild
+              >
+                <a href="#about">
+                  {t('Saiba Mais', 'Conoce Más')}
+                </a>
+              </Button>
+            </div>
+          </>
+        )}
 
         {/* Photo credit with CSS animation */}
         <p
