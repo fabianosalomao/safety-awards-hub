@@ -18,6 +18,7 @@ const Header = () => {
 
   const navLinks = [
     { id: 'hero', labelPT: 'Início', labelES: 'Inicio' },
+    { id: 'finalistas', labelPT: 'Finalistas', labelES: 'Finalistas' },
     { id: 'about', labelPT: 'Prêmio', labelES: 'Premio' },
     { id: 'eligibility', labelPT: 'Participar', labelES: 'Participar' },
     { id: 'criteria', labelPT: 'Critérios', labelES: 'Criterios' },
@@ -119,10 +120,10 @@ const Header = () => {
               {language === 'pt' ? 'ES' : 'PT'}
             </button>
             <Button
-              onClick={() => scrollToSection('submit')}
+              onClick={() => scrollToSection('finalistas')}
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              {t('Submeter Projeto', 'Enviar Proyecto')}
+              {t('Ver Finalistas', 'Ver Finalistas')}
             </Button>
           </div>
 
@@ -158,10 +159,10 @@ const Header = () => {
                     {t('Regulamento', 'Reglamento')}
                   </button>
                   <Button
-                    onClick={() => scrollToSection('submit')}
+                    onClick={() => scrollToSection('finalistas')}
                     className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
                   >
-                    {t('Submeter Projeto', 'Enviar Proyecto')}
+                    {t('Ver Finalistas', 'Ver Finalistas')}
                   </Button>
                 </nav>
               </SheetContent>
