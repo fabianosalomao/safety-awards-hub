@@ -325,68 +325,127 @@
         font-size: 0.95rem;
       }
       
-      /* Dates Section */
-      .dates-card {
-        background: var(--bg-card);
-        border: 1px solid rgba(239, 68, 68, 0.3);
-        border-radius: 16px;
-        padding: 48px;
-        max-width: 600px;
+      /* Finalists Section */
+      .fallback-finalists {
+        padding: 80px 24px;
+        max-width: 1280px;
         margin: 0 auto;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
       }
-      
-      .dates-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, transparent 50%, rgba(191, 162, 75, 0.1) 100%);
-        pointer-events: none;
-      }
-      
-      .dates-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
-        background: rgba(239, 68, 68, 0.1);
-        border: 1px solid rgba(239, 68, 68, 0.3);
-        border-radius: 9999px;
-        color: #ef4444;
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-bottom: 24px;
-      }
-      
-      .dates-date {
-        font-size: clamp(2rem, 5vw, 3rem);
+
+      .fallback-finalists h2 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
         font-weight: 700;
-        margin-bottom: 8px;
-      }
-      
-      .dates-subtitle {
-        color: var(--text-muted);
-        margin-bottom: 24px;
-      }
-      
-      .dates-note {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        position: relative;
-        z-index: 1;
-      }
-      
-      /* Submit CTA Section */
-      .fallback-cta {
         text-align: center;
-        padding: 100px 24px;
+        margin-bottom: 16px;
+      }
+
+      .finalists-stats {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+      }
+
+      .stat-block {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px 32px;
+        text-align: center;
+        min-width: 140px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      .finalists-grid {
+        display: grid;
+        gap: 20px;
+      }
+
+      @media (min-width: 640px) {
+        .finalists-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      @media (min-width: 1024px) {
+        .finalists-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+
+      .finalist-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .finalist-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .finalist-company {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .finalist-country {
+        font-size: 0.75rem;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        background: rgba(191, 162, 75, 0.1);
+        border: 1px solid rgba(191, 162, 75, 0.25);
+        color: var(--gold-light);
+        white-space: nowrap;
+      }
+
+      .finalist-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .finalist-meta {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* Next Steps Section */
+      .fallback-next {
+        text-align: center;
+        padding: 80px 24px;
         position: relative;
         overflow: hidden;
       }
-      
-      .fallback-cta::before {
+
+      .fallback-next::before {
         content: '';
         position: absolute;
         bottom: 0;
@@ -394,33 +453,24 @@
         transform: translateX(-50%);
         width: 800px;
         height: 400px;
-        background: radial-gradient(ellipse, rgba(0, 122, 51, 0.2) 0%, transparent 70%);
+        background: radial-gradient(ellipse, rgba(0, 122, 51, 0.15) 0%, transparent 70%);
         pointer-events: none;
       }
-      
-      .fallback-cta h2 {
+
+      .fallback-next h2 {
         font-size: clamp(1.75rem, 4vw, 2.75rem);
         margin-bottom: 16px;
       }
-      
-      .fallback-cta p {
+
+      .fallback-next p {
         color: var(--text-muted);
         font-size: 1.125rem;
         max-width: 600px;
-        margin: 0 auto 40px;
+        margin: 0 auto 24px;
+        position: relative;
+        z-index: 1;
       }
-      
-      .fallback-cta .btn-primary {
-        padding: 20px 48px;
-        font-size: 1.25rem;
-      }
-      
-      .cta-note {
-        margin-top: 24px;
-        color: var(--text-muted);
-        font-size: 0.875rem;
-      }
-      
+
       /* Footer */
       .fallback-footer {
         border-top: 1px solid var(--border-color);
@@ -446,12 +496,12 @@
       .fallback-footer a:hover {
         text-decoration: underline;
       }
-      
+
       /* Noscript message */
       .noscript-banner {
-        background: rgba(239, 68, 68, 0.1);
-        border-bottom: 1px solid rgba(239, 68, 68, 0.3);
-        color: #fca5a5;
+        background: rgba(191, 162, 75, 0.1);
+        border-bottom: 1px solid rgba(191, 162, 75, 0.3);
+        color: var(--gold-light);
         padding: 12px 24px;
         text-align: center;
         font-size: 0.875rem;
