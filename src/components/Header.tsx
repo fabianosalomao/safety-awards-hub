@@ -159,10 +159,10 @@ const Header = () => {
                     {t('Regulamento', 'Reglamento')}
                   </button>
                   <Button
-                    onClick={() => scrollToSection('submit')}
+                    onClick={() => scrollToSection('finalistas')}
                     className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
                   >
-                    {t('Submeter Projeto', 'Enviar Proyecto')}
+                    {t('Ver Finalistas', 'Ver Finalistas')}
                   </Button>
                 </nav>
               </SheetContent>

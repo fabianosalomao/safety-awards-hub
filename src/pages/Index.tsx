@@ -34,6 +34,7 @@ const Index = () => {
         <main>
           {/* Critical above-the-fold content - loads immediately */}
           <Hero />
+          <Finalists />
           <VideoSection />
           <About />
           
