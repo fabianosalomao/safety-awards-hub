@@ -161,8 +161,8 @@ const Finalists = () => {
               <>
                 Los proyectos finalistas se presentan en orden alfabético. En la segunda fase, la evaluación es realizada por el Comité Evaluador del Safety Innovation Awards, integrado por especialistas reconocidos en seguridad laboral e innovación, sin participación de MSA en este proceso.{' '}
                 <a
-                  href="#comite"
-                  onClick={(e) => { e.preventDefault(); document.getElementById('comite')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  href="#committee"
+                  onClick={(e) => { e.preventDefault(); document.getElementById('committee')?.scrollIntoView({ behavior: 'smooth' }); }}
                   className="text-accent hover:text-accent/80 underline underline-offset-2 transition-colors font-medium"
                 >
                   Conozca al Comité Evaluador
