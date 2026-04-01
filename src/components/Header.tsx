@@ -120,10 +120,10 @@ const Header = () => {
               {language === 'pt' ? 'ES' : 'PT'}
             </button>
             <Button
-              onClick={() => scrollToSection('submit')}
+              onClick={() => scrollToSection('finalistas')}
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              {t('Submeter Projeto', 'Enviar Proyecto')}
+              {t('Ver Finalistas', 'Ver Finalistas')}
             </Button>
           </div>
 
