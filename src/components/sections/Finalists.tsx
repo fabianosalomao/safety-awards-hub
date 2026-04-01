@@ -151,6 +151,40 @@ const Finalists = () => {
           ))}
         </div>
 
+        {/* Institutional notice */}
+        <div
+          className="max-w-3xl mx-auto mb-8 px-5 py-4 rounded-xl border border-border/60 bg-card/40 backdrop-blur-sm transition-all duration-700 delay-300"
+          style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(20px)' }}
+        >
+          <p className="text-sm text-muted-foreground leading-relaxed text-center">
+            {language === 'es' ? (
+              <>
+                Los proyectos finalistas se presentan en orden alfabético. En la segunda fase, la evaluación es realizada por el Comité Evaluador del Safety Innovation Awards, integrado por especialistas reconocidos en seguridad laboral e innovación, sin participación de MSA en este proceso.{' '}
+                <a
+                  href="#comite"
+                  onClick={(e) => { e.preventDefault(); document.getElementById('comite')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  className="text-accent hover:text-accent/80 underline underline-offset-2 transition-colors font-medium"
+                >
+                  Conozca al Comité Evaluador
+                </a>
+                .
+              </>
+            ) : (
+              <>
+                Os projetos finalistas estão apresentados em ordem alfabética. Na segunda fase, a avaliação é realizada pelo Comitê Avaliador do Safety Innovation Awards, formado por especialistas reconhecidos em segurança do trabalho e inovação, sem participação da MSA nesse processo.{' '}
+                <a
+                  href="#comite"
+                  onClick={(e) => { e.preventDefault(); document.getElementById('comite')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  className="text-accent hover:text-accent/80 underline underline-offset-2 transition-colors font-medium"
+                >
+                  Conheça o Comitê Avaliador
+                </a>
+                .
+              </>
+            )}
+          </p>
+        </div>
+
         {/* Results count + clear */}
         <div className="flex justify-center items-center gap-3 mb-8 text-sm text-muted-foreground">
           <span>
