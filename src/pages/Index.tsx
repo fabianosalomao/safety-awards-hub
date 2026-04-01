@@ -3,6 +3,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 import Header from '@/components/Header';
 import Hero from '@/components/sections/Hero';
 import VideoSection from '@/components/sections/VideoSection';
+import Finalists from '@/components/sections/Finalists';
 import About from '@/components/sections/About';
 import Footer from '@/components/Footer';
 
