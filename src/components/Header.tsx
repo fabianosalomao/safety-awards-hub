@@ -18,6 +18,7 @@ const Header = () => {
 
   const navLinks = [
     { id: 'hero', labelPT: 'Início', labelES: 'Inicio' },
+    { id: 'finalistas', labelPT: 'Finalistas', labelES: 'Finalistas' },
     { id: 'about', labelPT: 'Prêmio', labelES: 'Premio' },
     { id: 'eligibility', labelPT: 'Participar', labelES: 'Participar' },
     { id: 'criteria', labelPT: 'Critérios', labelES: 'Criterios' },
