@@ -98,13 +98,6 @@ export const finalists: Finalist[] = [
     incentivador: "Daniel León Shima",
   },
   {
-    title: "Modernização na atividade de hidrojato na parte interna de tanque dissolvedor",
-    company: "Klabin",
-    country: "BR",
-    team: ["vagner pires", "Evaldo Chimithe", "Silvio Cesar Ribeiro"],
-    incentivador: "Cristianne Landgraf Perez",
-  },
-  {
     title: "Programa de reconhecimento: Reconhecer para transformar",
     company: "Albert Einstein Hospital Israelita",
     country: "BR",
