@@ -66,7 +66,7 @@ export const finalists: Finalist[] = [
   {
     title: "Gold Fields & Safetymind: IA proactiva para la erradicación de accidentes fatales",
     company: "Gold Fields Perú",
-    country: "CL",
+    country: "PE",
     team: ["Elizabeth Acuña", "Luis Sanchez", "Mario Villalobos"],
   },
   {
