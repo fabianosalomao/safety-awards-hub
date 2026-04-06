@@ -34,7 +34,7 @@ export const finalists: Finalist[] = [
     title: "Combate a bioinvasão pelo uso de ferramentas de calor em MiniRovs",
     company: "Petrobras",
     country: "BR",
-    team: ["Daniel Adolpho da Silva Junior", "Guilherme Fortes de Oliveira Ferreira de Lima"],
+    team: ["Daniel Adolpho da Silva Junior", "Carlos Speglish"],
     incentivador: "Guilherme Fortes de Oliveira Ferreira de Lima",
   },
   {
