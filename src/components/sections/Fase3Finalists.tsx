@@ -4,9 +4,9 @@ import { finalists, countryNames } from '@/data/finalists';
 
 // Títulos exatos dos 3 finalistas da Fase 3 (ordem alfabética)
 const TOP3_TITLES = [
-  'Connect bot: IA democratizando acesso a dados e documentos de segurança',
+  'Centro de operações remotas (COR) para apoio à descaracterização de barragens',
   'Gold Fields & Safetymind: IA proactiva para la erradicación de accidentes fatales',
-  'Hubshe: tecnologia como pilar da transformação na gestão de segurança',
+  'Implementación tecnológica de dron autónomo y robot cuadrúpedo para detección de peligros y riesgos',
 ];
 
 const Fase3Finalists = () => {
