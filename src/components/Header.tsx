@@ -163,7 +163,7 @@ const Header = () => {
                     onClick={() => { navigate('/finalistas-fase-2'); setIsOpen(false); }}
                     className="text-lg font-medium text-foreground hover:text-primary transition-colors text-left"
                   >
-                    {t('Finalistas Fase 2', 'Finalistas Fase 2')}
+                    {t('Fase 2', 'Fase 2')}
                   </button>
                   <button
                     onClick={goToRegulamento}
