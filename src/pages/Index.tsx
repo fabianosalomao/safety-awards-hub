@@ -3,7 +3,8 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 import Header from '@/components/Header';
 import Hero from '@/components/sections/Hero';
 import VideoSection from '@/components/sections/VideoSection';
-import Finalists from '@/components/sections/Finalists';
+import Fase3Finalists from '@/components/sections/Fase3Finalists';
+import SafetySummit from '@/components/sections/SafetySummit';
 import About from '@/components/sections/About';
 import Footer from '@/components/Footer';
 
@@ -34,7 +35,8 @@ const Index = () => {
         <main>
           {/* Critical above-the-fold content - loads immediately */}
           <Hero />
-          <Finalists />
+          <Fase3Finalists />
+          <SafetySummit />
           <VideoSection />
           <About />
           

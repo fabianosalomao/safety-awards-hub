@@ -2,9 +2,11 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [logoLoaded, setLogoLoaded] = useState(false);
 
@@ -64,7 +66,7 @@ const Hero = () => {
           className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-up"
           style={{ animationDelay: '200ms' }}
         >
-          20 {t('finalistas anunciados', 'finalistas anunciados')}
+          {t('Fase 3 | 3 finalistas definidos', 'Fase 3 | 3 finalistas definidos')}
         </h1>
 
         {/* Subtitle */}
@@ -73,8 +75,8 @@ const Hero = () => {
           style={{ animationDelay: '350ms' }}
         >
           {t(
-            'Conheça os projetos selecionados para a 2ª fase do Safety Innovation Awards 2026.',
-            'Conozca los proyectos seleccionados para la segunda fase del Safety Innovation Awards 2026.'
+            'Após uma etapa de avaliação de alto nível, o Safety Innovation Awards 2026 chega à Fase 3. Os projetos finalistas representam iniciativas de grande relevância para a inovação e o fortalecimento da cultura de segurança na América Latina.',
+            'Tras una etapa de evaluación de alto nivel, el Safety Innovation Awards 2026 llega a la Fase 3. Los proyectos finalistas representan iniciativas de gran relevancia para la innovación y el fortalecimiento de la cultura de seguridad en América Latina.'
           )}
         </p>
 
@@ -86,10 +88,10 @@ const Hero = () => {
           <Button
             size="lg"
             className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold glow-green transition-transform hover:scale-105"
-            onClick={() => scrollToSection('finalistas')}
+            onClick={() => scrollToSection('fase3-finalistas')}
           >
             <span className="flex items-center gap-2">
-              {t('Ver os 20 finalistas', 'Ver los 20 finalistas')}
+              {t('Ver os 3 finalistas', 'Ver los 3 finalistas')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </Button>
@@ -97,9 +99,9 @@ const Hero = () => {
             variant="outline"
             size="lg"
             className="border-accent/50 text-accent hover:bg-accent/10 hover:border-accent px-8 py-6 text-lg transition-all hover:scale-105"
-            onClick={() => scrollToSection('process')}
+            onClick={() => navigate('/finalistas-fase-2')}
           >
-            {t('Entender o processo de seleção', 'Entender el proceso de selección')}
+            {t('Ver os 20 finalistas', 'Ver los 20 finalistas')}
           </Button>
         </div>
 
@@ -116,7 +118,7 @@ const Hero = () => {
 
         {/* Scroll indicator */}
         <button
-          onClick={() => scrollToSection('finalistas')}
+          onClick={() => scrollToSection('fase3-finalistas')}
           className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors animate-fade-in"
           style={{ animationDelay: '900ms' }}
           aria-label="Scroll to finalists"

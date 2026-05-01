@@ -18,7 +18,7 @@ const Header = () => {
 
   const navLinks = [
     { id: 'hero', labelPT: 'Início', labelES: 'Inicio' },
-    { id: 'finalistas', labelPT: 'Finalistas', labelES: 'Finalistas' },
+    { id: 'fase3-finalistas', labelPT: 'Top 3', labelES: 'Top 3' },
     { id: 'about', labelPT: 'Prêmio', labelES: 'Premio' },
     { id: 'eligibility', labelPT: 'Participar', labelES: 'Participar' },
     { id: 'criteria', labelPT: 'Critérios', labelES: 'Criterios' },
@@ -100,6 +100,16 @@ const Header = () => {
               </button>
             ))}
             <button
+              onClick={() => { navigate('/finalistas-fase-2'); setIsOpen(false); }}
+              className={`text-sm font-medium transition-colors ${
+                location.pathname === '/finalistas-fase-2'
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
+              {t('Finalistas Fase 2', 'Finalistas Fase 2')}
+            </button>
+            <button
               onClick={goToRegulamento}
               className={`text-sm font-medium transition-colors ${
                 location.pathname === '/regulamento' || location.pathname === '/reglamento'
@@ -120,10 +130,10 @@ const Header = () => {
               {language === 'pt' ? 'ES' : 'PT'}
             </button>
             <Button
-              onClick={() => scrollToSection('finalistas')}
+              onClick={() => scrollToSection('fase3-finalistas')}
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              {t('Ver Finalistas', 'Ver Finalistas')}
+              {t('Ver Top 3', 'Ver Top 3')}
             </Button>
           </div>
 
@@ -153,16 +163,22 @@ const Header = () => {
                     </button>
                   ))}
                   <button
+                    onClick={() => { navigate('/finalistas-fase-2'); setIsOpen(false); }}
+                    className="text-lg font-medium text-foreground hover:text-primary transition-colors text-left"
+                  >
+                    {t('Finalistas Fase 2', 'Finalistas Fase 2')}
+                  </button>
+                  <button
                     onClick={goToRegulamento}
                     className="text-lg font-medium text-foreground hover:text-primary transition-colors text-left"
                   >
                     {t('Regulamento', 'Reglamento')}
                   </button>
                   <Button
-                    onClick={() => scrollToSection('finalistas')}
+                    onClick={() => scrollToSection('fase3-finalistas')}
                     className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
                   >
-                    {t('Ver Finalistas', 'Ver Finalistas')}
+                    {t('Ver Top 3', 'Ver Top 3')}
                   </Button>
                 </nav>
               </SheetContent>
