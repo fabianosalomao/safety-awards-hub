@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import Regulamento from "./pages/Regulamento";
+import FinalistasFase2 from "./pages/FinalistasFase2";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,8 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/regulamento" element={<Regulamento />} />
               <Route path="/reglamento" element={<Regulamento />} />
+              <Route path="/finalistas-fase-2" element={<FinalistasFase2 />} />
+              <Route path="/finalistas-fase-2-es" element={<FinalistasFase2 />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
