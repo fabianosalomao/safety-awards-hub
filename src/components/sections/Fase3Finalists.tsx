@@ -62,8 +62,8 @@ const Fase3Finalists = () => {
         >
           <p className="text-sm text-muted-foreground leading-relaxed text-center">
             {t(
-              'Os projetos abaixo estão apresentados em ordem alfabética. O anúncio oficial do projeto vencedor será realizado em momento posterior.',
-              'Los proyectos a continuación se presentan en orden alfabético. El anuncio oficial del proyecto ganador se realizará posteriormente.'
+              'Os projetos abaixo estão apresentados em ordem alfabética. O anúncio oficial do projeto vencedor será realizado durante o MSA Safety Summit, em São Paulo (06 e 07 de maio).',
+              'Los proyectos a continuación se presentan en orden alfabético. El anuncio oficial del proyecto ganador se realizará durante el MSA Safety Summit, en São Paulo (6 y 7 de mayo).'
             )}
           </p>
         </div>
