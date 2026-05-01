@@ -18,13 +18,10 @@ const Header = () => {
 
   const navLinks = [
     { id: 'hero', labelPT: 'Início', labelES: 'Inicio' },
-    { id: 'fase3-finalistas', labelPT: 'Top 3', labelES: 'Top 3' },
     { id: 'about', labelPT: 'Prêmio', labelES: 'Premio' },
-    { id: 'eligibility', labelPT: 'Participar', labelES: 'Participar' },
     { id: 'criteria', labelPT: 'Critérios', labelES: 'Criterios' },
     { id: 'committee', labelPT: 'Comitê', labelES: 'Comité' },
     { id: 'awards', labelPT: 'Premiação', labelES: 'Premiación' },
-    { id: 'contact', labelPT: 'Contato', labelES: 'Contacto' },
   ];
 
   useEffect(() => {
