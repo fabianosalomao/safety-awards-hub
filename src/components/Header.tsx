@@ -104,7 +104,7 @@ const Header = () => {
                   : 'text-muted-foreground hover:text-primary'
               }`}
             >
-              {t('Finalistas Fase 2', 'Finalistas Fase 2')}
+              {t('Fase 2', 'Fase 2')}
             </button>
             <button
               onClick={goToRegulamento}
