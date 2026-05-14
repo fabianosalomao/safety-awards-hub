@@ -1,33 +1,28 @@
+## Objetivo
+Gerar um arquivo Excel (`.xlsx`) com os 19 finalistas, contendo: nome do projeto, empresa, nome de cada inscrito da equipe com seu respectivo e-mail (quando disponível) e o incentivador (quando houver).
 
+## Fonte dos dados
+1. **Lista oficial dos 19 finalistas**: `src/data/finalists.ts` — define títulos, empresas, países, equipe e incentivador.
+2. **E-mails**: tabela `submissions` no banco — contém `email` apenas do inscrito principal (campo `name`). Os campos `name_2` e `name_3` (demais membros da equipe) **não possuem e-mail individual** no banco.
 
-## Plan: New "Video" Section on Landing Page
+## Estratégia de cruzamento
+Como os títulos no banco têm pequenas variações (capitalização, acentos, espaços), o match será feito por **empresa + nome do inscrito principal** (normalizado), com fallback por similaridade de título quando necessário. Cada finalista será verificado manualmente contra o resultado.
 
-### What changes
-1. **New component**: `src/components/sections/VideoSection.tsx`
-2. **Insert in Index.tsx**: Between `<Hero />` and `<About />` (not lazy-loaded, since it's above the fold)
+## Estrutura do Excel
+Uma linha por **integrante da equipe** (formato longo, fácil de ler e filtrar):
 
-### Component Details (`VideoSection.tsx`)
+| Projeto | Empresa | País | Papel | Nome | E-mail | Incentivador |
+|---|---|---|---|---|---|---|
+| Connect bot... | Vale | Brasil | Inscrito principal | Flávio Ravier... | flavio@... | — |
+| Connect bot... | Vale | Brasil | Membro da equipe | Marcos Lourenço | (não disponível) | — |
+| ... | | | | | | |
 
-- Uses `useLanguage` hook for bilingual content (PT/ES)
-- Layout follows existing section patterns: `section-container`, `py-24 md:py-32`, same spacing
-- Structure:
-  - Title using `text-3xl md:text-4xl lg:text-5xl font-bold` + `text-gradient-gold` for "Safety Innovation Awards"
-  - Subtitle in `text-muted-foreground`
-  - YouTube embed in 16:9 `aspect-video` wrapper with `rounded-xl border border-border` and card shadow
-  - CTA button identical to Hero's primary button style, scrolling to `#submit`
-- YouTube embed: `https://www.youtube.com/embed/Mh2Geg9P7vc` in an iframe with `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"` and `allowFullScreen`
-- IntersectionObserver animation (same pattern as About section) for fade-in effect
-- Icon: `Send` (same as Submit section CTA) positioned left of text per project convention
+- O e-mail só aparece preenchido para o **inscrito principal** (limitação dos dados existentes).
+- Para `name_2` e `name_3` o campo e-mail ficará como "não disponível".
+- Incentivador é repetido em todas as linhas do mesmo projeto.
 
-### Index.tsx Change
-- Add `import VideoSection from '@/components/sections/VideoSection'` (eager, not lazy)
-- Insert `<VideoSection />` between `<Hero />` and `<About />`
+## Entrega
+Arquivo salvo em `/mnt/documents/finalistas-sia-2026.xlsx` e disponibilizado via tag de artefato para download.
 
-### Files affected
-| File | Change |
-|---|---|
-| `src/components/sections/VideoSection.tsx` | **New** |
-| `src/pages/Index.tsx` | Add import + insert component (2 lines) |
-
-No other files touched. No backend, form, admin, header, or routing changes.
-
+## Observação importante
+Se você precisar dos e-mails dos demais membros da equipe (`name_2` e `name_3`), eles **não estão no banco** — a inscrição original capturou apenas o e-mail do inscrito principal. Posso, alternativamente, gerar uma segunda aba apenas com o inscrito principal de cada projeto se preferir um relatório mais enxuto.
