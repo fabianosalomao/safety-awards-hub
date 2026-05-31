@@ -1,10 +1,11 @@
 import { lazy, Suspense } from 'react';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import Header from '@/components/Header';
-import Hero from '@/components/sections/Hero';
+import WinnerHero from '@/components/sections/WinnerHero';
+import WinnerVideo from '@/components/sections/WinnerVideo';
+import EventGallery from '@/components/sections/EventGallery';
+import OtherFinalists from '@/components/sections/OtherFinalists';
 import VideoSection from '@/components/sections/VideoSection';
-import Fase3Finalists from '@/components/sections/Fase3Finalists';
-import SafetySummit from '@/components/sections/SafetySummit';
 import About from '@/components/sections/About';
 import Footer from '@/components/Footer';
 
@@ -34,9 +35,10 @@ const Index = () => {
         <Header />
         <main>
           {/* Critical above-the-fold content - loads immediately */}
-          <Hero />
-          <Fase3Finalists />
-          <SafetySummit />
+          <WinnerHero />
+          <WinnerVideo />
+          <EventGallery />
+          <OtherFinalists />
           <VideoSection />
           <About />
           

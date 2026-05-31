@@ -126,12 +126,6 @@ const Header = () => {
             >
               {language === 'pt' ? 'ES' : 'PT'}
             </button>
-            <Button
-              onClick={() => scrollToSection('fase3-finalistas')}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              {t('Ver Top 3', 'Ver Top 3')}
-            </Button>
           </div>
 
           {/* Mobile Menu */}
@@ -171,12 +165,6 @@ const Header = () => {
                   >
                     {t('Regulamento', 'Reglamento')}
                   </button>
-                  <Button
-                    onClick={() => scrollToSection('fase3-finalistas')}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
-                  >
-                    {t('Ver Top 3', 'Ver Top 3')}
-                  </Button>
                 </nav>
               </SheetContent>
             </Sheet>
